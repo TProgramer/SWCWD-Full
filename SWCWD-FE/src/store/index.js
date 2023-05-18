@@ -44,12 +44,6 @@ export default new Vuex.Store({
     SET_VIDEO: function (state, video) {
       state.video = video
     },
-    // SET_LOGIN_USER: function (state, user) {
-    //   state.loginUser = user;
-    // },
-    // LOGOUT: function (state) {
-    //   state.loginUser = null;
-    // },
     SET_RANDOM_USER: function (state, user) {
       state.randomUser = user;
     },
@@ -71,10 +65,11 @@ export default new Vuex.Store({
       VueCookies.set('refreshToken', payload.refreshToken, '1h');
       state.accessToken = payload;
     },
-    LOGOUT () {
+    LOGOUT (state) {
       VueCookies.remove('accessToken');
       VueCookies.remove('refreshToken');
-  },
+      state.loginUser = null;
+    },
   },
   actions: {
     setVideos: function ({ commit }) {
@@ -121,6 +116,10 @@ export default new Vuex.Store({
       .catch((err) => {
         console.log(err);
       });
+    },
+    logout: ({ commit }) => {
+      commit("LOGOUT")
+      alert("로그아웃 되었습니다.")
     },
     setRandomUser: async function ({ commit }) {
       const API_URL = `https://random-data-api.com/api/users/random_user`;
