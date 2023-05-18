@@ -22,8 +22,8 @@
                   class="form-control" />
             </form>
             <template #modal-footer>
-              <b-button v-b-modal.modal-close_visit class="btn btn-danger w-25 m-1">Close</b-button>
-              <b-button v-b-modal.modal-close_visit class="btn btn-success w-25 m-1" @click="createReview">Submit</b-button>
+              <b-button class="btn btn-danger w-25 m-1">Close</b-button>
+              <b-button class="btn btn-success w-25 m-1" @click="createReview">Submit</b-button>
             </template>
         </b-modal>
 				<input class="col-4 h-70 m-2 form-control" type="search"

@@ -24,7 +24,8 @@ export default new Vuex.Store({
       return state.videos.slice(0,5)
     },
     videoCnt: function (state) {
-      return state.videos.length
+      
+      return state.videos.length || 0
     },
     getToken(state) {
       console.log(state)
@@ -143,15 +144,16 @@ export default new Vuex.Store({
         .then((res) => {
           if (res.status === 201) {
             alert("등록완료")
+            router.push("/");
         }
       })
     },
     updateReview: function ({commit}, review) {
       console.log(commit);
-      http.put("api-review",review)
+      http.put("api-review/",review)
         .then(() => {
           alert("수정 완료!");
-          router.push("/user");
+          router.push("/");
         })
         .catch((err) => {
           console.log(err);
