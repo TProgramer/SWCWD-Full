@@ -23,6 +23,9 @@ export default new Vuex.Store({
     popularVideos: function (state) {
       return state.videos.slice(0,5)
     },
+    videoCnt: function (state) {
+      return state.videos.length
+    },
     getToken(state) {
       console.log(state)
       let ac = VueCookies.get('accessToken');

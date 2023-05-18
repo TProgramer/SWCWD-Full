@@ -44,7 +44,7 @@
 
 			<div class="w-120 h-90">
 				<b-container id="video-list">
-						<div v-for="row in Math.ceil(videos.length/4)" :key="row" class="row m-3 align-items-center">
+						<div v-for="row in parseInt(videoCnt/4)" :key="row" class="row m-3 align-items-center">
 								<div v-for="col in 4" :key="col" class="col-md-3">
 									<router-link :to="`video/${videos[(row-1)*4+col-1].id}`">
 										<div class="card" style="width: 100%">
@@ -85,7 +85,7 @@ export default {
   },
   computed:{
     ...mapState(["videos"]),
-    ...mapGetters(["popularVideos"])
+    ...mapGetters(["popularVideos","videoCnt"])
   },
   created(){
     this.$store.dispatch("setVideos");
