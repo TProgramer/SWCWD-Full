@@ -31,15 +31,11 @@ jobs:
           java-version: '8'
           cache: 'maven'
           
-      - run: cd SWCWD-BE
-          
       - name: Build with Maven
-        run: mvn -B package --file pom.xml
-
-      - run: ls -al
+        run: cd SWCWD-BE && mvn -B package --file pom.xml
 
       - name: Create ZIP File 
-        run: zip -qq SWCWD-build.zip target/*.jar appspec.yml scripts/deploy.sh
+        run: cd SWCWD-BE && zip -qq SWCWD-build.zip target/*.jar appspec.yml scripts/deploy.sh
       
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@master
@@ -49,7 +45,7 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: Upload to S3
-        run: aws s3 cp --region ap-northeast-2 ./SWCWD-build.zip s3://swcwd-be-build/SWCWD-build.zip
+        run: cd SWCWD-BE && aws s3 cp --region ap-northeast-2 ./SWCWD-build.zip s3://swcwd-be-build/SWCWD-build.zip
           
       - name: Deploy to EC2
         run: aws deploy create-deployment
