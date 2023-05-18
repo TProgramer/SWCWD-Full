@@ -27,7 +27,7 @@ public class SwaggerConfig {
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
 				.title("SSAFIT_송은수_박종호")
-				.description("1학기 관통 SSAFIT API 문서!")
+				.description("1학기 관통 SSAFIT API 문서!!!")
 				.version("0.1")
 				.build();
 	}
