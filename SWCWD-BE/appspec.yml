@@ -11,7 +11,7 @@ permissions:
     group: ec2-user
     mode: 755
 hooks:
-  AfterInstall:
+  BeforeInstall:
     - location: scripts/beforeinstall.sh
       timeout: 10
       runas: root
