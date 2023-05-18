@@ -35,7 +35,7 @@ jobs:
         run: cd SWCWD-BE && mvn -B package --file pom.xml
 
       - name: Create ZIP File 
-        run: zip -qq -r ./SWCWD-build.zip . -i ./target/*.jar ./appspec.yml ./scripts/deploy.sh
+        run: zip -qq -r ./SWCWD-build.zip ./target/*.jar ./appspec.yml ./scripts/deploy.sh
       
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@master
