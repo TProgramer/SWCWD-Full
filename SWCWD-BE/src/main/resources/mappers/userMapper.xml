@@ -14,7 +14,7 @@
 	
 	<insert id="insertUser" parameterType="User">
 		INSERT INTO user
-		VALUES (#{id}, #{password}, #{name},#{nickName},#{email},#{birthDay},#{phoneNum})
+		VALUES (#{id}, #{password}, #{name},#{nickname},#{email},#{birthDay},#{phoneNum})
 	</insert>
 	
 </mapper>

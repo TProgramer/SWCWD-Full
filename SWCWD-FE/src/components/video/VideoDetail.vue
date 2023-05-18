@@ -81,15 +81,13 @@ export default {
         videoId: videoId,
         title: this.title,
         content:this.content,
-        writer: "운동장철봉"
+        writer: this.loginUser,
       }
-      console.log(review)
       this.$store.dispatch("createReview",review)
     }
   },
   computed: {
-    ...mapState(["video"]),
-    ...mapState(["reviews"])
+    ...mapState(["video","loginUser","reviews"]),
   },
   created() {
     const pathName = new URL(document.location).pathname.split("/");

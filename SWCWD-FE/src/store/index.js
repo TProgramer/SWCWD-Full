@@ -88,10 +88,11 @@ export default new Vuex.Store({
       })
     },
     createUser: function ({ commit }, user) {
+      console.log(commit)
       http.post("api-user/signup", user).then((res) => {
-        if (res.status === 200) {
+        if (res.status === 201) {
           alert("회원가입이 완료되었습니다.")
-          commit("SET_LOGIN_USER",user.nickName)
+          router.push("/")
         }
       })
     },
@@ -127,11 +128,13 @@ export default new Vuex.Store({
       try {
         const res = await axios.get(API_URL);
         let user = {
-          id: res.data.username,
+          id: res.data.uid,
           password: res.data.password,
           name: res.data.first_name,
           email: res.data.email,
-          age: Math.floor(Math.random() * (99 - 20)) + 20,
+          nickname: res.data.username,
+          phoneNum: res.data.phone_number,
+          birthDay: res.data.date_of_birth
         };
         commit("SET_RANDOM_USER", user);
       } catch (err) {

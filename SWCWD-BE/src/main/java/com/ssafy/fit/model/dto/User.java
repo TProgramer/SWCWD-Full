@@ -4,7 +4,7 @@ public class User {
 	private String id;
 	private String password;
 	private String name;
-	private String nickName;
+	private String nickname;
 	private String email;
 	private String birthDay;
 	private String phoneNum;
@@ -15,11 +15,11 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getNickName() {
-		return nickName;
+	public String getNickname() {
+		return nickname;
 	}
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	public String getEmail() {
 		return email;
@@ -51,5 +51,11 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", password=" + password + ", name=" + name + ", nickname=" + nickname + ", email="
+				+ email + ", birthDay=" + birthDay + ", phoneNum=" + phoneNum + "]";
+	}
 
+	
 }

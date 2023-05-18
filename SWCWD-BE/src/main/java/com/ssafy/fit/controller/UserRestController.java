@@ -48,7 +48,7 @@ public class UserRestController {
 			if(tmp != null) {
 				result.put("accessToken",jwtUtil.createToken("id",user.getId()));
 				result.put("message","success");
-				result.put("loginUser",tmp.getNickName());
+				result.put("loginUser",tmp.getNickname());
 				status = HttpStatus.ACCEPTED;
 			}
 			else {

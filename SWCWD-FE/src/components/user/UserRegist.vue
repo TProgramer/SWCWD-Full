@@ -13,17 +13,21 @@
       /><br />
       <label for="name">이름</label>
       <input type="text" id="name" v-model="name" class="view" /><br />
+        <label for="nickname">닉네임</label>
+      <input type="text" id="nickname" v-model="nickname" class="view" /><br />
+        <label for="birthDay">생년월일</label>
+      <input type="text" id="birthDay" v-model="birthDay" class="view" /><br />
       <label for="email">이메일</label>
       <input type="email" id="email" v-model="email" class="view" /><br />
-      <label for="age">나이</label>
-      <input type="number" id="age" v-model="age" class="view" /><br />
+      <label for="phoneNum">전화번호</label>
+      <input type="text" id="phoneNum" v-model="phoneNum" class="view" /><br />
       <b-button class="btn" @click="regist">등록</b-button>
       <b-button class="btn" @click="getInfoFromAPI">랜덤</b-button>
     </fieldset>
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapState } from "vuex";
 export default {
   name: "UserList",
   data() {
@@ -31,26 +35,32 @@ export default {
       id: "",
       password: "",
       name: "",
+      nickname: "",
       email: "",
-      age: 0,
-      img: "",
+      birthDay: "",
+      phoneNum: "",
     };
   },
   methods: {
     async getInfoFromAPI() {
-      await this.$store.dispatch("setRandomUser");
+      await this.$store.dispatch("setRandomUser")
       this.id = this.randomUser.id;
       this.password = this.randomUser.password;
       this.name = this.randomUser.name;
+      this.nickname = this.randomUser.nickname;
       this.email = this.randomUser.email;
-      this.age = this.randomUser.age;
+      this.phoneNum = this.randomUser.phoneNum;
+      this.birthDay = this.randomUser.birthDay;
     },
     regist() {
       if (
         this.id === "" ||
         this.password === "" ||
         this.name === "" ||
-        this.email === ""
+        this.nickname === "" ||
+        this.email === "" ||
+        this.phoneNum === "" ||
+        this.birthDay === ""
       ) {
         alert("모든 내용을 입력해주세요");
         return;
@@ -61,15 +71,16 @@ export default {
         password: this.password,
         name: this.name,
         email: this.email,
-        age: this.age,
-        img: "#",
+        nickname: this.nickname,
+        phoneNum: this.phoneNum,
+        birthDay: this.birthDay,
       };
 
       this.$store.dispatch("createUser", user);
     },
   },
   computed: {
-    ...mapGetters(["randomUser"]),
+    ...mapState(["randomUser"]),
   },
 };
 </script>
