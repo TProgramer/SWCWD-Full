@@ -1,0 +1,16 @@
+stages:
+  - build
+  - deploy
+
+maven-build:
+  image: maven:3.6.3-openjdk-11
+  stage: build
+  script: "./SWCWD-BE/mvnw clean compile"
+
+deploy:
+  stage: deploy
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  script:
+   - zip -r deploy.zip ./target/*.jar
+   - aws s3 cp deploy.zip s3://swcwd-be-build/deploy/deploy.zip
+  environment: production
