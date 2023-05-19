@@ -1,6 +1,5 @@
 package com.ssafy.fit.model.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import com.ssafy.fit.model.dto.Review;
