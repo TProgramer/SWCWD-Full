@@ -9,13 +9,13 @@
       <input placeholder="birthDay" type="text" id="birthDay" v-model="birthDay" class="view" /><br />
       <input placeholder="email" type="email" id="email" v-model="email" class="view" /><br />
       <input placeholder="phoneNum" type="text" id="phoneNum" v-model="phoneNum" class="view" /><br />
-      <b-button class="btn" @click="regist">등록</b-button>
-      <b-button class="btn" @click="getInfoFromAPI">랜덤</b-button>
+      <div class="row justify-content-center">
+      <b-button class="btn-success col-sm-4 col-9" @click="regist">등록</b-button>
+      </div>
     </fieldset>
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
 export default {
   name: "UserList",
   data() {
@@ -30,16 +30,6 @@ export default {
     };
   },
   methods: {
-    async getInfoFromAPI() {
-      await this.$store.dispatch("setRandomUser")
-      this.id = this.randomUser.id;
-      this.password = this.randomUser.password;
-      this.name = this.randomUser.name;
-      this.nickname = this.randomUser.nickname;
-      this.email = this.randomUser.email;
-      this.phoneNum = this.randomUser.phoneNum;
-      this.birthDay = this.randomUser.birthDay;
-    },
     regist() {
       if (
         this.id === "" ||
@@ -66,9 +56,6 @@ export default {
 
       this.$store.dispatch("createUser", user);
     },
-  },
-  computed: {
-    ...mapState(["randomUser"]),
   },
 };
 </script>

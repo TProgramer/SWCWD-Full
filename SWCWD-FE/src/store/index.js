@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import http from "../util/http-common"
-import axios from "axios"
 import VueCookies from 'vue-cookies';
 import router from "../router"
 
@@ -11,8 +10,6 @@ export default new Vuex.Store({
   state: {
     videos: [],
     video: null,
-    // loginUser: null,
-    randomUser: null,
     reviews: [],
     review: null,
     accessToken: null,
@@ -43,9 +40,6 @@ export default new Vuex.Store({
     },
     SET_VIDEO: function (state, video) {
       state.video = video
-    },
-    SET_RANDOM_USER: function (state, user) {
-      state.randomUser = user;
     },
     SET_REVIEWS: function (state, reviews) {
       state.reviews = reviews
@@ -120,25 +114,6 @@ export default new Vuex.Store({
     logout: ({ commit }) => {
       commit("LOGOUT")
       alert("로그아웃 되었습니다.")
-    },
-    setRandomUser: async function ({ commit }) {
-      const API_URL = `https://random-data-api.com/api/users/random_user`;
-
-      try {
-        const res = await axios.get(API_URL);
-        let user = {
-          id: res.data.uid,
-          password: res.data.password,
-          name: res.data.first_name,
-          email: res.data.email,
-          nickname: res.data.username,
-          phoneNum: res.data.phone_number,
-          birthDay: res.data.date_of_birth
-        };
-        commit("SET_RANDOM_USER", user);
-      } catch (err) {
-        console.log(err);
-      }
     },
     createReview: function ({ commit }, review) {
       console.log(commit)

@@ -4,7 +4,9 @@
 		<div id="logo">
 			<h3><router-link to="/">SSAFIT</router-link></h3>
 		</div>
-		<div class="w-50 search d-none d-sm-block">
+		<div class="w-50 search d-none d-sm-block" style=" position: absolute;
+  left: 25%;
+  top: 2%;">
 			<input id="search" type="search" class="form-control p-6"
 				placeholder="Search" />
 		</div>

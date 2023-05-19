@@ -43,13 +43,13 @@
       </div>
       <b-container id="video-list">
           <div v-for="row in parseInt(videoCnt/4)" :key="row" class="row align-items-center">
-              <div v-for="col in 4" :key="col" class="col-md-3 mb-3">
+              <div v-for="col in 4" :key="col" class="col-md-3 my-3">
                 <router-link :to="`video/${videos[(row-1)*4+col-1].id}`">
                   <div class="d-flex flex-column align-items-center">
-                      <b-img fluid :src="`${videos[(row-1)*4+col-1].thumbUrl}`" style="object-fit: cover; maxHeight: 200px; width:80%; border-radius: 5%;"
+                      <b-img fluid :src="`${videos[(row-1)*4+col-1].thumbUrl}`" style="object-fit: cover; maxHeight: 168px; width:100%;"
                       class="mb-2"
                         alt="..."></b-img>
-                    <div class="w-75">
+                    <div class="w-100">
                       <h6 v-line-clamp:20="2">
                           {{videos[(row-1)*4+col-1].title}}
                           </h6>
