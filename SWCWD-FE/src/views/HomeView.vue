@@ -1,7 +1,13 @@
 <template>
     <main class="container">
+      <div class="w-50 search d-none d-sm-block" style=" position: absolute;
+  left: 25%;
+  top: 2%;">
+			<input id="search" type="search" class="form-control p-6"
+				placeholder="Search" />
+		</div>
 		<div>
-			<h3 id="popular-text" class="fs-4 my-3">인기 동영상</h3>
+			<h4 id="popular-text" class="fs-4 font-weight-bold my-3">인기 동영상</h4>
 			<!--carousel slide-->
 			<div class="d-flex justify-content-center">
       <b-container class="w-50">
@@ -27,29 +33,30 @@
 		</div>
 		</div>
 
-		<div>
-      <h3 class="fs-4 my-3">운동 부위 선택</h3>
-      <div class="mb-4 row justify-content-center">
-        <b-button class="col-md-1 col-2">전체</b-button>
-        <b-button class="col-md-1 col-2">하체</b-button>
-        <b-button class="col-md-1 col-2">상체</b-button>
-        <b-button class="col-md-1 col-2">복근</b-button>
+		<div class="mt-4">
+      <h4 class="my-2 font-weight-bold">전체 영상</h4>
+      <div class="mb-4 row">
+        <b-button class="col-1 d-none d-sm-block" style="font-size: 13px">전체</b-button>
+        <b-button class="col-1 d-none d-sm-block" style="font-size: 13px">하체</b-button>
+        <b-button class="col-1 d-none d-sm-block" style="font-size: 13px">상체</b-button>
+        <b-button class="col-1 d-none d-sm-block" style="font-size: 13px">복근</b-button>
+
+        <b-button class="col-2 d-block d-sm-none" style="font-size: 11px">전체</b-button>
+        <b-button class="col-2 d-block d-sm-none" style="font-size: 11px">하체</b-button>
+        <b-button class="col-2 d-block d-sm-none" style="font-size: 11px">상체</b-button>
+        <b-button class="col-2 d-block d-sm-none" style="font-size: 11px">복근</b-button>
+
       </div>
       <b-container id="video-list">
           <div v-for="row in parseInt(videoCnt/4)" :key="row" class="row align-items-center">
-              <div v-for="col in 4" :key="col" class="col-md-3 mb-3">
+              <div v-for="col in 4" :key="col" class="col-md-3 my-3">
                 <router-link :to="`video/${videos[(row-1)*4+col-1].id}`">
                   <div class="d-flex flex-column align-items-center">
-                      <b-img fluid :src="`${videos[(row-1)*4+col-1].thumbUrl}`" style="object-fit: cover; maxHeight: 200px; width:80%; border-radius: 5%;"
+                      <b-img fluid :src="`${videos[(row-1)*4+col-1].thumbUrl}`" style="object-fit: cover; maxHeight: 168px; width:100%;"
                       class="mb-2"
                         alt="..."></b-img>
-                    <div class="w-75 text-center">
-                      <h6 style="line-height: 1.5em;
-                          height: 3em;
-                          overflow: hidden;
-                          white-space: nowrap;
-                          text-overflow: ellipsis;
-                          width: 100%;">
+                    <div class="w-100">
+                      <h6 v-line-clamp:20="2">
                           {{videos[(row-1)*4+col-1].title}}
                           </h6>
                     </div>
