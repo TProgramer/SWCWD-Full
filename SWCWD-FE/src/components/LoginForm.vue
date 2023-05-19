@@ -1,17 +1,23 @@
 <template>
-  <div class="container">
-    <h2>로그인</h2>
+  <div class="mt-5 container d-flex flex-column justify-content-center">
+    <h2 class="text-center font-weight-bold">Sign In</h2>
     <fieldset class="text-center">
-      <label for="id">아이디</label>
-      <input type="text" id="id" v-model="id" class="view" /><br />
-      <label for="password">비밀번호</label>
+      <div class="d-flex justify-content-center align-items-center">
+        
+        <input placeholder="ID" type="text" id="id" v-model="id" class="view" />
+      </div>
+        <div class="d-flex justify-content-center align-items-center">
       <input
+        placeholder="Password" 
         type="password"
         id="password"
         v-model="password"
         class="view"
-      /><br />
-      <b-button class="btn" @click="login">로그인</b-button>
+      />
+      </div>
+      <div class="row justify-content-center">
+        <b-button class="btn-success col-sm-2 col-9" @click="login">Sign In</b-button>
+      </div>
     </fieldset>
   </div>
 </template>

@@ -31,7 +31,10 @@ export default {
 .text-center {
   text-align: center;
 }
-.container {
-  margin: 0px 15px;
+
+a{
+  text-decoration: none;
+  color:black;
 }
+
 </style>
