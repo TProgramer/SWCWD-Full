@@ -1,7 +1,7 @@
 <template>
     <main class="container">
-      <div class="w-50 search d-none d-sm-block" style=" position: absolute;
-  left: 25%;
+      <div class="search d-none d-sm-block" style="width:30%; position: absolute;
+  left: 35%;
   top: 2%;">
 			<input id="search" type="search" class="form-control p-6"
 				placeholder="Search" />
