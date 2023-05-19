@@ -1,5 +1,11 @@
 <template>
     <main class="container">
+      <div class="w-50 search d-none d-sm-block" style=" position: absolute;
+  left: 25%;
+  top: 2%;">
+			<input id="search" type="search" class="form-control p-6"
+				placeholder="Search" />
+		</div>
 		<div>
 			<h4 id="popular-text" class="fs-4 font-weight-bold my-3">인기 동영상</h4>
 			<!--carousel slide-->
