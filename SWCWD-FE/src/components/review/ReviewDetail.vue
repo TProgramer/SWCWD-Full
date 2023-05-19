@@ -1,13 +1,6 @@
 <template>
   <main class="container">
 		<div class="d-flex flex-column justify-content-between m-5">
-			<div class="d-flexjustify-content-between">
-<router-link to="/"><b-button type="button">목록</b-button></router-link>
-				<!--모달 트리거-->
-			<b-button class="btn-success" type="button" v-b-modal="'my-modal'">수정</b-button>
-			<b-button class="btn-danger" type="button" @click="deleteReview">삭제</b-button>
-			</div>
-
 			<div class="">
 				<div class="m-3 p-3 border-top d-flex justify-content-between">
 				<!--모달-->
@@ -27,18 +20,34 @@
         </b-modal>
 			</div>
 			</div>
-			<div class="container shadow w-75 mt-3">
-				<div class="text-center">
-					<div id="title" class="mb-3 fs-4">{{review.title }}</div>
-					<ul class="list-unstyled">
-						<li id="writer">{{review.writer }}</li>
-						<li id="createdAt">{{review.createdAt }}</li>
-						<li id="viewCnt">{{review.viewCnt }}</li>
-					</ul>
+			<div class="container shadow pt-4">
+				<div class="text-start">
+					<h6 id="title" class="font-weight-bold">{{review.title }}</h6>
+
+					<div class="d-flex">
+						<div class="mr-1" style="font-size: 12px" id="writer">{{review.writer }} | </div>
+						<div class="mr-1" style="font-size: 12px" id="createdAt">{{review.createdAt }}</div>
+						<div class="mr-1 text-right flex-fill" style="font-size: 12px" id="viewCnt">조회수: {{review.viewCnt }}</div>
+					</div>
+					<hr/>
+					<blockquote id="content" class="text-start">{{review.content }}</blockquote>
+
 				</div>
-				<div id="content" class="text-center m-5 p-3 border-top">{{review.content }}</div>
+				
 			</div>
 		</div>
+		<div class="d-flex justify-content-end fluid">
+			<router-link class="m-1" to="/">
+				<b-button class="btn-block " type="button">목록</b-button>
+			</router-link>
+				<!--모달 트리거-->
+			<div class="m-1">
+				<b-button class="btn-block" variant="success" v-b-modal="'my-modal'">수정</b-button>
+			</div>
+			<div class="m-1">
+				<b-button class="btn-block" variant="danger"  type="button" @click="deleteReview">삭제</b-button>
+			</div>
+			</div>
 	</main>
 </template>
 

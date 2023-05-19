@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
-    <header-nav />
-    <router-view />
-  </div>
+    <div id="app">
+      <header-nav />
+      <router-view />
+    </div>
 </template>
 <script>
 import HeaderNav from "./components/HeaderNav.vue";
@@ -31,9 +31,4 @@ export default {
 .text-center {
   text-align: center;
 }
-a{
-  text-decoration: none;
-  color:black;
-}
-
 </style>
