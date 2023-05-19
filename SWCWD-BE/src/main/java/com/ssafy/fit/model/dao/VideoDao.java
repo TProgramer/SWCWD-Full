@@ -2,7 +2,6 @@ package com.ssafy.fit.model.dao;
 
 import java.util.List;
 
-import com.ssafy.fit.model.dto.SearchCondition;
 import com.ssafy.fit.model.dto.Video;
 
 public interface VideoDao {
