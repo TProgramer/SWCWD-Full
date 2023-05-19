@@ -31,6 +31,7 @@ export default {
 .text-center {
   text-align: center;
 }
+
 a{
   text-decoration: none;
   color:black;

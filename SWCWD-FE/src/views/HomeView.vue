@@ -32,7 +32,6 @@
       </b-container>
 		</div>
 		</div>
-
 		<div class="mt-4">
       <h4 class="my-2 font-weight-bold">전체 영상</h4>
       <div class="mb-4 row">
