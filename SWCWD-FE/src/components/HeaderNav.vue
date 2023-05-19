@@ -1,21 +1,21 @@
 <template>
   <header class="text-center">
-	<nav class="row my-5 d-flex align-items-center">
-		<div id="logo" class="col-3 fs-2">
-			<router-link to="/" class="btn btn-default"><h3>SSAFIT</h3></router-link>
+	<nav class="row my-3 px-4 d-flex align-items-center justify-content-between">
+		<div id="logo" class="col-4">
+			<h3><router-link to="/">SSAFIT</router-link></h3>
 		</div>
-		<div class="col-6 search">
+		<div class="col-4 search d-none d-sm-block">
 			<input id="search" type="search" class="form-control p-6"
 				placeholder="검색어를 입력하세요" />
 		</div>
-		<div class="row-3 col">
-			<span class="mx-3 col-4">
-        <a href="#" v-if="getUser" @click="logout">로그아웃</a>
-      <router-link to="/login" v-else>로그인</router-link>
-      </span> 
-        <span class="mx-3 col-4">
-            <router-link :to="{ name: 'Regist' }">회원가입</router-link>
-        </span> 
+		<div class="col-4 d-flex justify-content-center">
+			<div class="mr-3  ">
+        <a href="#" v-if="getUser" @click="logout"><h6>LOGOUT</h6></a>
+      <router-link to="/login" v-else><h6>SIGN IN</h6></router-link>
+      </div> 
+        <div>
+            <router-link :to="{ name: 'Regist' }"><h6>SIGN UP</h6></router-link>
+        </div> 
 		</div>
 	</nav>
 </header>
@@ -28,7 +28,7 @@ export default {
   name: "HeaderNav",
     methods: {
       logout() {
-        this.$store.dispatch("LOGOUT");
+        this.$store.dispatch("logout");
       },
     },
     computed: {
