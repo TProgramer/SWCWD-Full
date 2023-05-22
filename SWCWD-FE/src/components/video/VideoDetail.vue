@@ -2,7 +2,7 @@
   <main class="container">
 		<div class="d-flex justify-content-center m-5">
 			<b-embed  type="iframe" 
-				:src="`http://www.youtube.com/embed/${video.id}`"
+				:src="`https://www.youtube.com/embed/${video.id}`"
         allowfullscreen
         aspect="16by9"
 ></b-embed>
