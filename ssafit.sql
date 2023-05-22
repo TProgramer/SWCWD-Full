@@ -62,6 +62,7 @@ CREATE TABLE `user` (
     `email` VARCHAR(200) NOT NULL,
     `birthDay` VARCHAR(20) NOT NULL,
     `phoneNum` VARCHAR(200) NOT NULL,
+    `regDate` TIMESTAMP NOT NULL DEFAULT now(),
     PRIMARY KEY(`id`)
 ) ENGINE=InnoDB;
 
