@@ -1,6 +1,6 @@
 <template>
   <div class="mt-5 container d-flex flex-column justify-content-center">
-    <h2 class="text-center font-weight-bold">Sign In</h2>
+    <h2 class="text-center font-weight-bold">SSAFIT에 오신 것을 환영합니다.</h2>
     <fieldset class="text-center">
       <div class="d-flex justify-content-center align-items-center">
         
@@ -15,8 +15,12 @@
         class="view"
       />
       </div>
+      <div class="d-flex justify-content-end my-2" style="width:90%"> 
+        <router-link to="/regist">▶ 아직 회원이 아니십니까? </router-link>
+      </div>
+      
       <div class="row justify-content-center">
-        <b-button class="btn-success col-sm-2 col-9" @click="login">Sign In</b-button>
+        <b-button class="btn-success col-sm-2 col-9" @click="login">로그인</b-button>
       </div>
     </fieldset>
   </div>

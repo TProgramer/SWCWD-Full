@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-5">
-    <h2 class="text-center font-weight-bold">Sign Up</h2>
+    <h2 class="text-center font-weight-bold">회원가입</h2>
     <fieldset class="text-center">
       <input placeholder="id" type="text" id="id" v-model="id" class="view" /><br />
       <input placeholder="password" type="password" id="password" v-model="password" class="view"><br >
@@ -10,7 +10,7 @@
       <input placeholder="email" type="email" id="email" v-model="email" class="view" /><br />
       <input placeholder="phoneNum" type="text" id="phoneNum" v-model="phoneNum" class="view" /><br />
       <div class="row justify-content-center">
-      <b-button class="btn-success col-sm-4 col-9" @click="regist">등록</b-button>
+      <b-button class="btn-success col-sm-2 col-9" @click="regist">회원가입</b-button>
       </div>
     </fieldset>
   </div>

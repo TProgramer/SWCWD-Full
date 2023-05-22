@@ -1,17 +1,16 @@
 <template>
   <header class="container text-center">
-	<nav class="my-3 d-flex align-items-center justify-content-between">
+	<nav class="mt-4 d-flex align-items-center justify-content-between">
 		<div id="logo">
 			<router-link to="/"><h3 class="font-weight-bold">SSAFIT</h3></router-link>
 		</div>
 		<div class="d-flex justify-content-center">
 			<div class="mr-3">
-        <a href="#" v-if="getUser" @click="logout"><h6>LOGOUT</h6></a>
-      <router-link to="/login" v-else><h6>SIGN IN</h6></router-link>
+        <a href="#" v-if="getUser" @click="logout"><h6>로그아웃</h6></a>
+      <router-link to="/login" v-else><h6>로그인</h6></router-link>
       </div> 
         <div>
-            <a href="#" v-if="getUser" @click="logout"><h6>MY PAGE</h6></a>
-            <router-link :to="{ name: 'Regist' }" v-else><h6>SIGN UP</h6></router-link>
+            <a href="#" v-if="getUser" @click="logout"><h6>마이페이지</h6></a>
         </div> 
 		</div>
 	</nav>
