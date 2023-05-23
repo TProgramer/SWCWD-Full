@@ -173,10 +173,9 @@ export default new Vuex.Store({
     //   commit('removeToken');
     //   location.reload();
     // },
-    getCalendarLog: function({ state, commit }) {
-      http.get(`api-mypage/`, {
-        id: state.loginId
-      })
+    getCalendarLog: function({ commit }, id) {
+      const params = {loginId: id}
+      http.get('api-mypage/', { params })
         .then((res) => {
           if(res.status == 200) {
             commit("GET_CALENDAR_LOG", res.data);

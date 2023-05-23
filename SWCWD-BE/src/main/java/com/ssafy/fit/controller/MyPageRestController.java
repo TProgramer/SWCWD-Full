@@ -25,8 +25,8 @@ public class MyPageRestController {
   private CalendarLogService calendarLogService;
   
   @GetMapping("/")
-  public List<CalendarLog> logList(@RequestBody String id) {
-    return calendarLogService.selectAll(id);
+  public List<CalendarLog> logList(String loginId) {
+    return calendarLogService.selectAll(loginId);
   }
   //달력 로그 생성
   @PostMapping("/")
