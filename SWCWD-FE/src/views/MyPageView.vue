@@ -19,7 +19,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(["regDate"]),
+    ...mapState(["regDate", "calendarLog"]),
+  },
+  created() {
+    this.$store.dispatch("getCalendarLog");
   }
 }
 </script>
