@@ -8,6 +8,7 @@
 	<select id="selectAll" resultType="video">
 		SELECT *
 		FROM video
+		ORDER BY id
 	</select>
 
 	<!-- 영상 아이디에 맞는 영상 하나 조회 -->
@@ -25,11 +26,20 @@
 	</select>
 	
 	<!-- 조회수 많은 순으로 영상 가져오기 -->
-	<select id="selectViewCnt" resultType="video">
+	<select id="selectViewCnt" resultType="video">	
 		SELECT *
 		FROM video
 		ORDER BY viewCnt DESC
-		LIMIT 3;
+		LIMIT 5;
 	</select>
 	
+	<select id="selectVideoByPage" resultType="video" parameterType="String">
+		SELECT *
+		FROM video
+		<if test="videoId neq null and videoId neq ''">
+			WHERE STRCMP(id , #{videoId}) = 1
+		</if>
+		ORDER BY id
+		LIMIT 8;
+	</select>
 </mapper>

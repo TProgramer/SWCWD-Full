@@ -34,6 +34,11 @@ public class VideoServiceImpl implements VideoService {
 		return videoDao.selectViewCnt();
 	}
 
+	@Override
+	public List<Video> getVideoByPage(String videoId) {
+		return videoDao.selectVideoByPage(videoId);
+	}
+
 
 
 }
