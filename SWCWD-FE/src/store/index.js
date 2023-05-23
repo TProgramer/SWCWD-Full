@@ -15,6 +15,7 @@ export default new Vuex.Store({
     review: null,
     accessToken: null,
     refreshToken: null,
+    loginId: null,
     loginUser: null,
     regDate: null,
     calendarLog: [],
@@ -55,6 +56,7 @@ export default new Vuex.Store({
       VueCookies.set('refreshToken', payload.refreshToken, '1h');
       state.accessToken = payload.accessToken;
       state.refreshToken = payload.refreshToken;
+      state.loginId = payload.id;
       state.loginUser = payload.loginUser;
       state.regDate = payload.regDate;
     },
@@ -69,8 +71,9 @@ export default new Vuex.Store({
       state.loginUser = null;
     },
     GET_CALENDAR_LOG (state, payload) {
+      console.log(payload)
       state.calendarLog = payload;
-    }
+    },
   },
   actions: {
     setVideos: function ({ commit }) {
@@ -169,7 +172,23 @@ export default new Vuex.Store({
     // logout: ({commit}) => { // 로그아웃
     //   commit('removeToken');
     //   location.reload();
-    // }
+    // },
+    getCalendarLog: function({ state, commit }) {
+      http.get(`api-mypage/`, {
+        id: state.loginId
+      })
+        .then((res) => {
+          if(res.status == 200) {
+            commit("GET_CALENDAR_LOG", res.data);
+          }
+          else {
+            alert("정보를 불러오는데 실패했습니다.")
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
   },
   plugins: [
     createPersistedState(),
