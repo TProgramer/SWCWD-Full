@@ -96,4 +96,21 @@ VALUES
 ("1VImLS9eKdI", "여기 잘먹네요;;", "운동장철봉", "효과미침"),
 ("2paxL9MmxWM", "저녁 햄버거 먹으려고요.", "매운떡볶이", "끝나고 햄버거 먹어도 될 정도의 강도ㄷㄷ");
 
-select * from review;
+DROP TABLE IF EXISTS `calendarLog`;
+
+CREATE TABLE `calendarLog` (
+    `id` VARCHAR(20) NOT NULL,
+    `date` TIMESTAMP NOT NULL,
+    `title` VARCHAR(200) NOT NULL,
+    `content` VARCHAR(200) NOT NULL,
+    PRIMARY KEY(`id`, `date`),
+    CONSTRAINT `id_fk` FOREIGN KEY(`id`) REFERENCES `user` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+INSERT INTO calendarLog
+VALUES
+('ssafy1', '2023-05-21 00:00:00', '유산소 운동', '5분만 해도 땀이 뻘뻘;'),
+('ssafy1', '2023-05-22 00:00:00', '유산소 운동', '5분만 해도 땀이 뻘뻘;'),
+('ssafy1', '2023-05-23 00:00:00', '유산소 운동', '5분만 해도 땀이 뻘뻘;');
+
+select * from calendarLog;
