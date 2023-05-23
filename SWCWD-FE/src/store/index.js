@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import http from "../util/http-common"
 import VueCookies from 'vue-cookies';
 import router from "../router"
+import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex)
 
@@ -15,6 +16,8 @@ export default new Vuex.Store({
     accessToken: null,
     refreshToken: null,
     loginUser: null,
+    regDate: null,
+    calendarLog: [],
   },
   getters: {
     popularVideos: function (state) {
@@ -53,6 +56,7 @@ export default new Vuex.Store({
       state.accessToken = payload.accessToken;
       state.refreshToken = payload.refreshToken;
       state.loginUser = payload.loginUser;
+      state.regDate = payload.regDate;
     },
     refreshToken(state, payload) { //accessToken 재셋팅
       VueCookies.set('accessToken', payload.accessToken, '60s');
@@ -64,6 +68,9 @@ export default new Vuex.Store({
       VueCookies.remove('refreshToken');
       state.loginUser = null;
     },
+    GET_CALENDAR_LOG (state, payload) {
+      state.calendarLog = payload;
+    }
   },
   actions: {
     setVideos: function ({ commit }) {
@@ -164,6 +171,7 @@ export default new Vuex.Store({
     //   location.reload();
     // }
   },
-  modules: {
-  }
+  plugins: [
+    createPersistedState(),
+  ]
 })
