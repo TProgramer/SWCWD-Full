@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.fit.model.dto.Video;
@@ -59,4 +61,12 @@ public class VideoRestController {
 		List<Video> videoList = videoService.getVideoByViewCnt();
 		return new ResponseEntity<List<Video>>(videoList,HttpStatus.OK);
 	}
+	
+	//무한 스크롤을 위해 일부반 가져오기
+	@GetMapping("/list/page")
+	public ResponseEntity<List<Video>> getVideoByPage(@RequestParam(value="id", required=false, defaultValue="")String videoId){
+		List<Video> videoList = videoService.getVideoByPage(videoId);
+		return new ResponseEntity<List<Video>>(videoList,HttpStatus.OK);
+	}
+	
 }

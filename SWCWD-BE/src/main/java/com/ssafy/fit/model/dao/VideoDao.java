@@ -16,4 +16,7 @@ public interface VideoDao {
 	
 	//조회수 많은 순으로 영상 가져오기
 	public List<Video> selectViewCnt();
+
+	//무한 스크롤을 위한 영상 가져오기
+	public List<Video> selectVideoByPage(String videoId);
 }

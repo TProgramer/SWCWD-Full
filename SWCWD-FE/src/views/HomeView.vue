@@ -86,12 +86,17 @@
           </b-col>
         </b-row>
       </b-container>
+      <infinite-loading
+        @infinite="infiniteHandler"
+        spinner="waveDots"
+      ></infinite-loading>
     </div>
   </main>
 </template>
 
 <script>
   import { mapGetters, mapState } from "vuex";
+  import InfiniteLoading from "vue-infinite-loading";
   export default {
     name: "HomeView",
     data() {
@@ -108,8 +113,21 @@
       onSlideEnd() {
         this.sliding = false;
       },
+      infiniteHandler($state) {
+        this.$store
+          .dispatch("getMoreVideo")
+          .then((res) => {
+            if (res) $state.loaded();
+            else $state.complete();
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      },
     },
-    components: {},
+    components: {
+      InfiniteLoading,
+    },
     computed: {
       ...mapState(["filteredVideos"]),
       ...mapGetters(["popularVideos", "videoCnt"]),
