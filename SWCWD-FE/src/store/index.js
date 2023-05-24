@@ -1,8 +1,9 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import http from "../util/http-common";
-import VueCookies from "vue-cookies";
-import router from "../router";
+import Vue from 'vue'
+import Vuex from 'vuex'
+import http from "../util/http-common"
+import VueCookies from 'vue-cookies';
+import router from "../router"
+import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
@@ -14,7 +15,11 @@ export default new Vuex.Store({
     review: null,
     accessToken: null,
     refreshToken: null,
+    loginId: null,
     loginUser: null,
+    regDate: null,
+    calendarLog: [],
+    askGPTLog: null,
     filteredVideos: [],
     category: "",
   },
@@ -58,7 +63,9 @@ export default new Vuex.Store({
       VueCookies.set("refreshToken", payload.refreshToken, "1h");
       state.accessToken = payload.accessToken;
       state.refreshToken = payload.refreshToken;
+      state.loginId = payload.id;
       state.loginUser = payload.loginUser;
+      state.regDate = payload.regDate;
     },
     refreshToken(state, payload) {
       //accessToken 재셋팅
@@ -66,10 +73,21 @@ export default new Vuex.Store({
       VueCookies.set("refreshToken", payload.refreshToken, "1h");
       state.accessToken = payload;
     },
-    LOGOUT(state) {
-      VueCookies.remove("accessToken");
-      VueCookies.remove("refreshToken");
-      state.loginUser = null;
+    LOGOUT (state) {
+      VueCookies.remove('accessToken');
+      VueCookies.remove('refreshToken');
+      state.loginId= null;
+      state.loginUser= null;
+      state.regDate= null;
+      state.calendarLog= [];
+      state.calendarLog = [];
+      state.askGPTLog = null;
+    },
+    GET_CALENDAR_LOG (state, payload) {
+      state.calendarLog = payload;
+    },
+    ASK_GPT (state, payload) {
+      state.askGPTLog = payload;
     },
     SEARCH(state, searchWord) {
       if (searchWord == "") state.filteredVideos = state.videos;
@@ -209,7 +227,87 @@ export default new Vuex.Store({
     // logout: ({commit}) => { // 로그아웃
     //   commit('removeToken');
     //   location.reload();
-    // }
+    // },
+    getCalendarLog: function({ commit }, id) {
+      const params = {loginId: id}
+      http.get('api-mypage/', { params })
+        .then((res) => {
+          if(res.status == 200) {
+            commit("GET_CALENDAR_LOG", res.data);
+          }
+          else {
+            alert("정보를 불러오는데 실패했습니다.")
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    setCalendarLog: function({ state }, log) {
+      http.post('api-mypage/', log)
+        .then((res) => {
+          if(res.status == 200) {
+            Vue.set(state.calendarLog, state.calendarLog.length, log)
+            alert("등록 성공!")
+          }
+          else {
+            alert("정보를 불러오는데 실패했습니다.")
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    askGPT: function({ commit }, logs) {
+
+      const { Configuration, OpenAIApi } = require("openai");
+
+      console.log(process.env)
+      const configiration = new Configuration({
+          // organization: process.env.OPENAI_ORGANIZATION,
+          apiKey: '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',
+      });
+
+      console.log(commit, logs)
+      
+      // const api_key = process.env.VUE_APP_OPEN_AI_KEY;
+      let keywords = [];
+      for(let log of logs) {
+        keywords.push(log.title);
+      }
+      
+      const messages = [
+        { role: 'system', content: 'You are a helpful and kind trainer.' },
+        { role: 'user', content: '최근에 ' + keywords.join(',') + '을(를) 했는데 다음에 어떤 운동을 하면 좋을지 3가지 정도로 추천해줘.' },
+      ]
+
+      const openai = new OpenAIApi(configiration);
+
+      const runGPT35 = async () => {
+        const res = await openai.createChatCompletion({
+          model: "gpt-3.5-turbo",
+          messages: messages,
+          temperature: 0.5,
+          n: 1,
+        });
+        console.log(res)
+        let answer = [];
+        res.data.choices[0].message.content.split('\n\n').forEach((sentence) => {
+          if(Number.isInteger(Number(sentence[0]))) {
+            const [title, content] = sentence.split(':');
+            answer.push({
+              title: title,
+              content: content
+            });
+          }
+        });
+        commit('ASK_GPT', answer);
+      };
+      
+      runGPT35();
+    },
   },
-  modules: {},
-});
+  plugins: [
+    createPersistedState(),
+  ]
+})

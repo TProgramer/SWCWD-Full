@@ -4,6 +4,7 @@ import Home from '../views/HomeView.vue'
 import User from '../views/UserView.vue'
 import Video from '../views/VideoView.vue'
 import Review from '../views/ReviewView.vue'
+import MyPage from '../views/MyPageView.vue'
 import LoginForm from '../components/LoginForm.vue'
 import UserRegist from '../components/user/UserRegist.vue'
 import VideoDetail from '../components/video/VideoDetail.vue'
@@ -58,6 +59,11 @@ const routes = [
         component: ReviewDetail,
       },
     ]
+  },
+  {
+    path: "/mypage",
+    name: "MyPage",
+    component: MyPage,
   }
 ]
 

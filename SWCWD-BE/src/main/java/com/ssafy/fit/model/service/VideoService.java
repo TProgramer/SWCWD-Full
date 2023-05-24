@@ -20,5 +20,4 @@ public interface VideoService {
 
 	//무한 스크롤을 위한 영상 가져오기
 	public List<Video> getVideoByPage(String videoId);
-	
 }
