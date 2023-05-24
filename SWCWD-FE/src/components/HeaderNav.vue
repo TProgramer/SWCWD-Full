@@ -18,7 +18,13 @@
             class="d-sm-none mr-3"
             @click="showModal"
           ></b-icon-search>
-          <a href="#" v-if="getUser" @click="logout"><h6>마이페이지</h6></a>
+          <a
+            href="#"
+            v-if="getUser"
+            @click="logout"
+            style="font-size: 16px; font-weight: 500"
+            >마이페이지</a
+          >
           <router-link
             to="/login"
             style="font-size: 16px; font-weight: 500"
