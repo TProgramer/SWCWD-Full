@@ -64,9 +64,6 @@
       };
     },
     methods: {
-      logout() {
-        this.$store.dispatch("logout");
-      },
       showModal() {
         this.$refs["my-modal"].show();
       },

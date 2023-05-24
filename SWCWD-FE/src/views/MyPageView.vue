@@ -23,7 +23,7 @@
           >
             <b-card-text>{{ ask.content }}</b-card-text>
             <b-button
-              @click="addCalendar(`${ask}`)"
+              @click="addCalendar(`${ask.title}`,`${ask.content}`)"
               variant="outline-primary"
               style="white-space:nowrap; width:max-content">운동 선택
             </b-button>
@@ -38,10 +38,9 @@
     </div>
     <a
       href="#"
-      v-if="getUser"
       @click="logout"
-      style="font-size: 16px; font-weight: 500"
-      >마이페이지</a
+      style="font-size: 16px; fo웃t-weight: 500"
+      >로그아웃</a
     >
   </div>
 </template>
@@ -60,13 +59,17 @@ export default {
     }
   },
   methods: {
-    addCalendar: function(ask) {
+    logout() {
+        this.$store.dispatch("logout");
+    },
+    addCalendar: function(title, content) {
       const log = {
         id: this.loginId,
         date: new Date().toISOString().slice(0, 19).replace('T', ' '),
-        title: ask.title,
-        content: ask.content
+        title: title,
+        content: content
       }
+      console.log(log)
       this.$store.dispatch("setCalendarLog", log);
     }
   }, 
@@ -82,7 +85,6 @@ export default {
     }
   },
   async created() {
-    console.log(this.regDate)
     if(this.calendarLog.length == 0)
       await this.$store.dispatch("getCalendarLog", this.loginId);
     if(!this.askGPTLog)

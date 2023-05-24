@@ -244,6 +244,7 @@ export default new Vuex.Store({
         })
     },
     setCalendarLog: function({ state }, log) {
+      console.log(log)
       http.post('api-mypage/', log)
         .then((res) => {
           if(res.status == 200) {
