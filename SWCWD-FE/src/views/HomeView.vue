@@ -33,62 +33,62 @@
     <div class="mt-4">
       <h4 class="my-2">전체 영상</h4>
       <div class="mb-4 row">
-        <b-button
-          class="col-1 d-none d-sm-block"
+        <v-btn
+          class="col-1 d-none d-sm-block m-1"
           style="font-size: 13px"
           @click="onCategoryBtnClick"
           value=""
-          >전체</b-button
+          >전체</v-btn
         >
-        <b-button
-          class="col-1 d-none d-sm-block"
+        <v-btn
+          class="col-1 d-none d-sm-block m-1"
           style="font-size: 13px"
           @click="onCategoryBtnClick"
           value="하체"
-          >하체</b-button
+          >하체</v-btn
         >
-        <b-button
-          class="col-1 d-none d-sm-block"
+        <v-btn
+          class="col-1 d-none d-sm-block m-1"
           style="font-size: 13px"
           @click="onCategoryBtnClick"
           value="상체"
-          >상체</b-button
+          >상체</v-btn
         >
-        <b-button
-          class="col-1 d-none d-sm-block"
+        <v-btn
+          class="col-1 d-none d-sm-block m-1"
           style="font-size: 13px"
           @click="onCategoryBtnClick"
           value="복근"
-          >복근</b-button
+          >복근</v-btn
         >
 
-        <b-button
-          class="col-2 d-block d-sm-none"
+        <v-btn
+          class="col-2 d-block d-sm-none m-1"
           style="font-size: 11px"
           @click="onCategoryBtnClick"
           value=""
-          >전체</b-button
+          >전체</v-btn
         >
-        <b-button
-          class="col-2 d-block d-sm-none"
+        <v-btn
+          class="col-2 d-block d-sm-none m-1"
           style="font-size: 11px"
           @click="onCategoryBtnClick"
           value="하체"
-          >하체</b-button
+          >하체</v-btn
         >
-        <b-button
-          class="col-2 d-block d-sm-none"
+        <v-btn
+          class="col-2 d-block d-sm-none m-1"
           style="font-size: 11px"
           @click="onCategoryBtnClick"
           value="상체"
-          >상체</b-button
+          >상체</v-btn
         >
-        <b-button
-          class="col-2 d-block d-sm-none"
+        <v-btn
+          class="col-2 d-block d-sm-none m-1"
           style="font-size: 11px"
           @click="onCategoryBtnClick"
           value="복근"
-          >복근</b-button
+          >복근</v-btn
         >
       </div>
       <b-container id="video-list" class="row">
@@ -132,7 +132,6 @@
       return {
         slide: 0,
         sliding: null,
-        loadNum: 0,
       };
     },
     methods: {
@@ -156,22 +155,21 @@
         }, 1000);
       },
       onCategoryBtnClick(e) {
-        this.$store.dispatch("setCategory", e.target.value);
+        this.$store.dispatch(
+          "setCategory",
+          e.currentTarget.getAttribute("value")
+        );
       },
     },
     components: {
       InfiniteLoading,
     },
     computed: {
-      ...mapGetters(["popularVideos", "videoCnt", "showVideos"]),
-      nrows() {
-        return Math.floor((this.videoCnt - 1) / 4) + 1;
-      },
+      ...mapGetters(["popularVideos", "showVideos"]),
     },
     created() {
       this.$store.dispatch("setVideos");
     },
   };
 </script>
-
 <style scoped></style>
