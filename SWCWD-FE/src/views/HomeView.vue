@@ -32,7 +32,7 @@
 
     <div class="mt-4">
       <h4 class="my-2">전체 영상</h4>
-      <div class="mb-4 row">
+      <div class="mb-4 row" id="category-btns">
         <v-btn
           class="col-1 d-none d-sm-block m-1"
           style="font-size: 13px"
@@ -91,7 +91,7 @@
           >복근</v-btn
         >
       </div>
-      <b-container id="video-list" class="row">
+      <b-container id="video-list" class="row justify-content-center">
         <div
           class="col-xs-8 col-sm-6 col-md-4 col-lg-3"
           v-for="video in showVideos"
@@ -99,13 +99,13 @@
         >
           <router-link :to="`video/${video.id}`">
             <div class="d-flex flex-column">
-              <b-img
+              <b-img-lazy
                 fluid
                 :src="`https://img.youtube.com/vi/${video.id}/mqdefault.jpg`"
                 style="object-fit: cover; width: 100%"
                 class="mb-2"
                 alt="..."
-              ></b-img>
+              ></b-img-lazy>
               <div class="w-100" style="font-size: 14px">
                 <p v-line-clamp:20="2">
                   {{ video.title }}
@@ -172,4 +172,17 @@
     },
   };
 </script>
-<style scoped></style>
+<style scoped>
+  @media (max-width: 800px) {
+    h4 {
+      text-align: center;
+    }
+    #category-btns {
+      display: flex;
+      justify-content: center;
+    }
+    .row {
+      margin: 0;
+    }
+  }
+</style>

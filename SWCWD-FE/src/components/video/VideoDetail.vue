@@ -35,7 +35,7 @@
           <thead>
             <tr>
               <th scope="col" class="col-1">#</th>
-              <th scope="col" class="col-5">제목</th>
+              <th scope="col" class="col-sm-5 col-4">제목</th>
               <th scope="col" class="col-2">작성자</th>
               <th scope="col" class="col-2">조회수</th>
               <th scope="col" class="col-2">작성일</th>
@@ -104,4 +104,13 @@
   };
 </script>
 
-<style></style>
+<style scoped>
+  @media (max-width: 800px) {
+    th {
+      font-size: 11px;
+    }
+    td {
+      font-size: 11px;
+    }
+  }
+</style>

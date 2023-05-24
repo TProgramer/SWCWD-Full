@@ -18,9 +18,8 @@
             </form>
             <template #modal-footer>
               <v-btn
-                color="primary"
                 v-b-modal.modal-close_visit
-                class="btn btn-success w-25 m-1"
+                class="w-25 m-1"
                 @click="updateReview"
                 >Submit</v-btn
               >
