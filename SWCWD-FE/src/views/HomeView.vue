@@ -33,58 +33,87 @@
     <div class="mt-4">
       <h4 class="my-2">전체 영상</h4>
       <div class="mb-4 row">
-        <b-button class="col-1 d-none d-sm-block" style="font-size: 13px"
+        <b-button
+          class="col-1 d-none d-sm-block"
+          style="font-size: 13px"
+          @click="onCategoryBtnClick"
+          value=""
           >전체</b-button
         >
-        <b-button class="col-1 d-none d-sm-block" style="font-size: 13px"
+        <b-button
+          class="col-1 d-none d-sm-block"
+          style="font-size: 13px"
+          @click="onCategoryBtnClick"
+          value="하체"
           >하체</b-button
         >
-        <b-button class="col-1 d-none d-sm-block" style="font-size: 13px"
+        <b-button
+          class="col-1 d-none d-sm-block"
+          style="font-size: 13px"
+          @click="onCategoryBtnClick"
+          value="상체"
           >상체</b-button
         >
-        <b-button class="col-1 d-none d-sm-block" style="font-size: 13px"
+        <b-button
+          class="col-1 d-none d-sm-block"
+          style="font-size: 13px"
+          @click="onCategoryBtnClick"
+          value="복근"
           >복근</b-button
         >
 
-        <b-button class="col-2 d-block d-sm-none" style="font-size: 11px"
+        <b-button
+          class="col-2 d-block d-sm-none"
+          style="font-size: 11px"
+          @click="onCategoryBtnClick"
+          value=""
           >전체</b-button
         >
-        <b-button class="col-2 d-block d-sm-none" style="font-size: 11px"
+        <b-button
+          class="col-2 d-block d-sm-none"
+          style="font-size: 11px"
+          @click="onCategoryBtnClick"
+          value="하체"
           >하체</b-button
         >
-        <b-button class="col-2 d-block d-sm-none" style="font-size: 11px"
+        <b-button
+          class="col-2 d-block d-sm-none"
+          style="font-size: 11px"
+          @click="onCategoryBtnClick"
+          value="상체"
           >상체</b-button
         >
-        <b-button class="col-2 d-block d-sm-none" style="font-size: 11px"
+        <b-button
+          class="col-2 d-block d-sm-none"
+          style="font-size: 11px"
+          @click="onCategoryBtnClick"
+          value="복근"
           >복근</b-button
         >
       </div>
-      <b-container id="video-list">
-        <b-row v-for="row in nrows" :key="row">
-          <b-col v-for="col in 4" :key="col">
-            <router-link
-              :to="`video/${filteredVideos[(row - 1) * 4 + col - 1].id}`"
-              v-if="(row - 1) * 4 + col - 1 < videoCnt"
-            >
-              <div class="d-flex flex-column">
-                <b-img
-                  fluid
-                  :src="`https://img.youtube.com/vi/${
-                    filteredVideos[(row - 1) * 4 + col - 1].id
-                  }/maxresdefault.jpg`"
-                  style="object-fit: cover; width: 100%"
-                  class="mb-2"
-                  alt="..."
-                ></b-img>
-                <div class="w-100" style="font-size: 14px">
-                  <p v-line-clamp:20="2">
-                    {{ filteredVideos[(row - 1) * 4 + col - 1].title }}
-                  </p>
-                </div>
+      <b-container id="video-list" class="row">
+        <div
+          class="col-xs-8 col-sm-6 col-md-4 col-lg-3"
+          v-for="video in showVideos"
+          :key="video.id"
+        >
+          <router-link :to="`video/${video.id}`">
+            <div class="d-flex flex-column">
+              <b-img
+                fluid
+                :src="`https://img.youtube.com/vi/${video.id}/mqdefault.jpg`"
+                style="object-fit: cover; width: 100%"
+                class="mb-2"
+                alt="..."
+              ></b-img>
+              <div class="w-100" style="font-size: 14px">
+                <p v-line-clamp:20="2">
+                  {{ video.title }}
+                </p>
               </div>
-            </router-link>
-          </b-col>
-        </b-row>
+            </div>
+          </router-link>
+        </div>
       </b-container>
       <infinite-loading
         @infinite="infiniteHandler"
@@ -95,7 +124,7 @@
 </template>
 
 <script>
-  import { mapGetters, mapState } from "vuex";
+  import { mapGetters } from "vuex";
   import InfiniteLoading from "vue-infinite-loading";
   export default {
     name: "HomeView",
@@ -114,23 +143,27 @@
         this.sliding = false;
       },
       infiniteHandler($state) {
-        this.$store
-          .dispatch("getMoreVideo")
-          .then((res) => {
-            if (res) $state.loaded();
-            else $state.complete();
-          })
-          .catch((e) => {
-            console.log(e);
-          });
+        setTimeout(() => {
+          this.$store
+            .dispatch("getMoreVideo")
+            .then((res) => {
+              if (res) $state.loaded();
+              else $state.complete();
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        }, 1000);
+      },
+      onCategoryBtnClick(e) {
+        this.$store.dispatch("setCategory", e.target.value);
       },
     },
     components: {
       InfiniteLoading,
     },
     computed: {
-      ...mapState(["filteredVideos"]),
-      ...mapGetters(["popularVideos", "videoCnt"]),
+      ...mapGetters(["popularVideos", "videoCnt", "showVideos"]),
       nrows() {
         return Math.floor((this.videoCnt - 1) / 4) + 1;
       },
