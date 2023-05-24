@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 import lineClamp from 'vue-line-clamp'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import SkeletonCards from 'vue-ultimate-skeleton-cards'
+
 
 // Import Bootstrap and BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
@@ -14,6 +16,9 @@ import vuetify from './plugins/vuetify'
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
+
+Vue.use(SkeletonCards)
+
 Vue.config.productionTip = false
 Vue.use(lineClamp)
 new Vue({

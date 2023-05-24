@@ -38,7 +38,4 @@ public class VideoServiceImpl implements VideoService {
 	public List<Video> getVideoByPage(String videoId) {
 		return videoDao.selectVideoByPage(videoId);
 	}
-
-
-
 }

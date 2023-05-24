@@ -8,6 +8,7 @@ public class User {
 	private String email;
 	private String birthDay;
 	private String phoneNum;
+	private String regDate;
 	
 	public String getName() {
 		return name;
@@ -51,11 +52,15 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
+	}
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", password=" + password + ", name=" + name + ", nickname=" + nickname + ", email="
-				+ email + ", birthDay=" + birthDay + ", phoneNum=" + phoneNum + "]";
+			+ email + ", birthDay=" + birthDay + ", phoneNum=" + phoneNum + ", regDate=" + regDate + "]";
 	}
-
-	
 }
