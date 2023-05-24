@@ -1,13 +1,8 @@
 <template>
-  <header class="container text-center">
-    <nav class="mt-4 d-flex align-items-center justify-content-between">
-      <div id="logo">
-        <a href="/"><h3 class="font-weight-bold">SSAFIT</h3></a>
-      </div>
-      <div
-        class="search d-none d-sm-block"
-        style="width: 30%; position: absolute; left: 35%; top: 2%"
-      >
+  <header class="pt-4 container text-center sticky-top bg-white">
+    <nav class="d-flex align-items-center justify-content-between">
+      <a href="/" style="font-size: 32px; font-weight: 500">SSAFIT</a>
+      <div class="search d-none d-sm-block" style="width: 50%">
         <input
           type="search"
           class="form-control p-6"
@@ -17,14 +12,19 @@
         />
       </div>
       <div class="d-flex">
-        <div class="d-flex mr-3">
+        <div class="d-flex mr-3 align-items-center">
           <b-icon-search
             type="button"
             class="d-sm-none mr-3"
             @click="showModal"
           ></b-icon-search>
           <a href="#" v-if="getUser" @click="logout"><h6>마이페이지</h6></a>
-          <router-link to="/login" v-else><h6>로그인</h6></router-link>
+          <router-link
+            to="/login"
+            style="font-size: 16px; font-weight: 500"
+            v-else
+            >로그인</router-link
+          >
         </div>
       </div>
       <!-- 검색 모달 -->

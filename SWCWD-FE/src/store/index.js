@@ -16,13 +16,15 @@ export default new Vuex.Store({
     refreshToken: null,
     loginUser: null,
     filteredVideos: [],
+    category: "",
   },
   getters: {
     popularVideos: function (state) {
       return state.videos.slice(0, 5);
     },
-    videoCnt: function (state) {
-      return state.filteredVideos.length || 0;
+    showVideos: function (state) {
+      if (state.category == "") return state.filteredVideos;
+      return state.filteredVideos.filter((e) => e.category === state.category);
     },
     lastVideoId: function (state) {
       return state.videos.at(-1).id;
@@ -75,10 +77,12 @@ export default new Vuex.Store({
         state.filteredVideos = state.videos.filter((e) =>
           e.title.includes(searchWord)
         );
-      console.log(state.filteredVideos);
     },
     GET_MORE_VIDEO(state, videos) {
       state.videos.push(...videos);
+    },
+    SET_CATEGORY(state, category) {
+      state.category = category;
     },
   },
   actions: {
@@ -186,6 +190,9 @@ export default new Vuex.Store({
             reject(err);
           });
       });
+    },
+    setCategory: function ({ commit }, category) {
+      commit("SET_CATEGORY", category);
     },
     // refreshToken: ({commit}) => { // accessToken 재요청
     //   //accessToken 만료로 재발급 후 재요청시 비동기처리로는 제대로 처리가 안되서 promise로 처리함
