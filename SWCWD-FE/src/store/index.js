@@ -10,6 +10,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     videos: [],
+    popularVideos: [],
     video: null,
     reviews: [],
     review: null,
@@ -24,9 +25,6 @@ export default new Vuex.Store({
     category: '',
   },
   getters: {
-    popularVideos: function (state) {
-      return state.videos.slice(0, 5);
-    },
     showVideos: function (state) {
       if (state.category == '') return state.filteredVideos;
       return state.filteredVideos.filter((e) => e.category === state.category);
@@ -48,6 +46,9 @@ export default new Vuex.Store({
     SET_VIDEOS: function (state, videos) {
       state.videos = videos;
       state.filteredVideos = videos;
+    },
+    SET_POPULAR_VIDEOS: function (state, popularVideos) {
+      state.popularVideos = popularVideos;
     },
     SET_VIDEO: function (state, video) {
       state.video = video;
@@ -107,6 +108,11 @@ export default new Vuex.Store({
     setVideos: function ({ commit }) {
       http.get('api-video/list/page').then((res) => {
         commit('SET_VIDEOS', res.data);
+      });
+    },
+    setPopularVideos: function ({ commit }) {
+      http.get('api-video/list/viewCnt').then((res) => {
+        commit('SET_POPULAR_VIDEOS', res.data);
       });
     },
     setVideo: function ({ commit }, id) {
@@ -244,10 +250,11 @@ export default new Vuex.Store({
         });
     },
     setCalendarLog: function ({ state }, log) {
+      console.log(log);
       http
         .post('api-mypage/', log)
         .then((res) => {
-          if (res.status == 200) {
+          if (res.status == 201) {
             Vue.set(state.calendarLog, state.calendarLog.length, log);
             alert('등록 성공!');
           } else {
@@ -258,18 +265,31 @@ export default new Vuex.Store({
           console.log(err);
         });
     },
+    deleteCalendarLog({ state }, log) {
+      console.log(state);
+      http
+        .delete('api-mypage/', log)
+        .then((res) => {
+          if (res.status == 200) {
+            alert('삭제 완료!');
+          } else {
+            alert('삭제 실패..');
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     askGPT: function ({ commit }, logs) {
       const { Configuration, OpenAIApi } = require('openai');
 
-      console.log(process.env);
       const configiration = new Configuration({
         // organization: process.env.OPENAI_ORGANIZATION,
         apiKey: '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',
       });
 
-      console.log(commit, logs);
+      console.log(logs);
 
-      // const api_key = process.env.VUE_APP_OPEN_AI_KEY;
       let keywords = [];
       for (let log of logs) {
         keywords.push(log.title);

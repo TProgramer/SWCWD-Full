@@ -66,15 +66,16 @@
       };
     },
     methods: {
-      logout() {
-        this.$store.dispatch('logout');
-      },
       showModal() {
         this.$refs['my-modal'].show();
       },
       search() {
         this.$store.dispatch('search', this.searchWord);
         this.$refs['my-modal'].hide();
+      },
+      logout() {
+        this.$store.dispatch('logout');
+        this.$router.push('/');
       },
     },
     computed: {
