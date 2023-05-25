@@ -23,7 +23,12 @@
             <p>제목:</p>
             <input v-model="title" type="text" class="form-control" /> <br />
             <p>내용:</p>
-            <input v-model="content" type="text" class="form-control" />
+            <input
+              v-model="content"
+              type="text"
+              class="form-control"
+              @keyup.enter="createReview"
+            />
             <v-btn block class="my-3" @click="createReview">Submit</v-btn>
           </form>
         </b-modal>
@@ -61,55 +66,59 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex';
+import { mapState } from "vuex";
 
-  export default {
-    name: 'VideoDetail',
-    data() {
-      return {
-        title: '',
-        content: '',
+export default {
+  name: "VideoDetail",
+  data() {
+    return {
+      title: "",
+      content: "",
+    };
+  },
+  methods: {
+    async setVideo(id) {
+      await this.$store.dispatch("setVideo", id);
+    },
+    async setReviews(id) {
+      await this.$store.dispatch("setReviews", id);
+    },
+    createReview() {
+      if (this.title == "" || this.content == "") {
+        alert("내용을 입력해주세요!");
+        return;
+      }
+      const pathName = new URL(document.location).pathname.split("/");
+      const videoId = pathName[pathName.length - 1];
+      const review = {
+        videoId: videoId,
+        title: this.title,
+        content: this.content,
+        writer: this.loginUser,
       };
+      this.$refs["my-modal"].hide();
+      this.$store.dispatch("createReview", review);
     },
-    methods: {
-      async setVideo(id) {
-        await this.$store.dispatch('setVideo', id);
-      },
-      async setReviews(id) {
-        await this.$store.dispatch('setReviews', id);
-      },
-      createReview() {
-        const pathName = new URL(document.location).pathname.split('/');
-        const videoId = pathName[pathName.length - 1];
-        const review = {
-          videoId: videoId,
-          title: this.title,
-          content: this.content,
-          writer: this.loginUser,
-        };
-        this.$refs['my-modal'].hide();
-        this.$store.dispatch('createReview', review);
-      },
-    },
-    computed: {
-      ...mapState(['video', 'loginUser', 'reviews']),
-    },
-    created() {
-      const pathName = new URL(document.location).pathname.split('/');
-      const id = pathName[pathName.length - 1];
-      this.setVideo(id);
-      this.setReviews(id);
-    },
-  };
+  },
+  computed: {
+    ...mapState(["video", "loginUser", "reviews"]),
+  },
+  created() {
+    const pathName = new URL(document.location).pathname.split("/");
+    const id = pathName[pathName.length - 1];
+    this.setVideo(id);
+    this.setReviews(id);
+  },
+};
 </script>
 
 <style scoped>
-  @media (max-width: 800px) {
-    th {
-      font-size: 11px;
-    }
-    td {
-      font-size: 11px;
-    }
+@media (max-width: 800px) {
+  th {
+    font-size: 11px;
   }
+  td {
+    font-size: 11px;
+  }
+}
 </style>
