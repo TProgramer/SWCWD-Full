@@ -249,7 +249,6 @@ export default new Vuex.Store({
         .then((res) => {
           if(res.status == 201) {
             Vue.set(state.calendarLog, state.calendarLog.length, log)
-            alert("등록 성공!")
           }
           else {
             alert("정보를 불러오는데 실패했습니다.")
@@ -259,12 +258,12 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    deleteCalendarLog({ state }, log) {
+    deleteCalendarLog: function({ state, dispatch }, data) {
       console.log(state)
-      http.delete('api-mypage/', log)
+      http.delete('api-mypage/', { data })
         .then((res) => {
           if(res.status == 200) {
-            alert("삭제 완료!")
+            dispatch("getCalendarLog", this.loginId);
           }
           else {
             alert("삭제 실패..")

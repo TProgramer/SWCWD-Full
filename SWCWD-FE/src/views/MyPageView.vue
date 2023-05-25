@@ -69,19 +69,21 @@ export default {
         this.$router.push("/");
     },
     addCalendar: function(title, content) {
+      const today = new Date();
       const log = {
         id: this.loginId,
-        date: new Date().toISOString().slice(0, 10),
+        date: today.getFullYear()+'-'+(today.getMonth() + 1) +'-'+today.getDate(),
         title: title,
-        content: content
+        content: content,
       }
+      console.log(log.date);
       this.$store.dispatch("setCalendarLog", log);
-      this.$router.go();
     },
     deleteCalendar: function() {
+      const today = new Date();
       const log = {
         id: this.loginId,
-        date: new Date().toISOString().slice(0, 10),
+        date: today.getFullYear()+'-'+(today.getMonth() + 1) +'-'+today.getDate(),
       }
       this.$store.dispatch("deleteCalendarLog", log);
     }
@@ -89,17 +91,15 @@ export default {
   computed: {
     ...mapState(["loginUser", "regDate", "calendarLog", "loginId", "askGPTLog"]),
     targetLog: function() {
-      console.log(new Date(this.selectedDate.toString().slice(0,3)))
       for(let log of this.calendarLog) {
-        if(this.selectedDate.toISOString().slice(0, 10) === new Date(log.date).toISOString().slice(0, 10)) {
+        if(this.selectedDate.toDateString() == new Date(log.date).toDateString())
           return log;
-        }
       }
       return null;
     },
     todayLog : function() {
       for(let log of this.calendarLog) {
-        if(new Date().toISOString().slice(0, 10) === new Date(log.date).toISOString().slice(0, 10))
+        if(new Date().toDateString() == new Date(log.date).toDateString())
           return true;
       }
       return false;
