@@ -10,6 +10,7 @@
           class="form-control p-6"
           placeholder="Search"
           @keyup.enter="search"
+          v-if="$route.path == '/'"
           v-model="searchWord"
         />
       </div>
@@ -18,10 +19,11 @@
           <b-icon-search
             type="button"
             class="d-sm-none mr-3"
+            v-if="$route.path == ''"
             @click="showModal"
           ></b-icon-search>
           <a
-            href="redirect:/"
+            href="#"
             @click="logout"
             style="font-size: 16px; font-weight: 500"
             v-if="$route.path == '/mypage'"

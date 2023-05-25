@@ -145,7 +145,6 @@ export default new Vuex.Store({
         .post('api-user/login', user)
         .then((res) => {
           if (res.status == 202) {
-            alert('로그인 성공!');
             commit('SET_LOGIN_USER', res.data);
             router.push('/');
           } else {
@@ -165,7 +164,6 @@ export default new Vuex.Store({
       console.log(commit);
       http.post('api-review/', review).then((res) => {
         if (res.status === 201) {
-          alert('등록완료');
           dispatch('setReviews', review.videoId);
         }
       });
@@ -175,7 +173,6 @@ export default new Vuex.Store({
       http
         .put('api-review/', review)
         .then(() => {
-          alert('수정 완료!');
         })
         .catch((err) => {
           console.log(err);
@@ -294,14 +291,15 @@ export default new Vuex.Store({
         keywords.push(log.title);
       }
 
+      let prompt;
+      if(keywords.length < 3) prompt = '새로 운동을 시작해보려는데 할 만한 운동을 3가지 정도 추천해줘.';
+      else prompt = '최근에 ' + keywords.join(',') + '을(를) 했는데 다음에 어떤 운동을 하면 좋을지 3가지 정도로 추천해줘.';
+
       const messages = [
         { role: 'system', content: 'You are a helpful and kind trainer.' },
         {
           role: 'user',
-          content:
-            '최근에 ' +
-            keywords.join(',') +
-            '을(를) 했는데 다음에 어떤 운동을 하면 좋을지 3가지 정도로 추천해줘.',
+          content: prompt,
         },
       ];
 
