@@ -1,6 +1,8 @@
 <template>
-  <header class="pt-4 container text-center sticky-top bg-white">
-    <nav class="d-flex align-items-center justify-content-between">
+  <header class="bg-white sticky-top">
+    <nav
+      class="pt-4 d-flex container align-items-center justify-content-between"
+    >
       <a href="/" style="font-size: 32px; font-weight: 500">SSAFIT</a>
       <div class="search d-none d-sm-block" style="width: 50%">
         <input
@@ -54,29 +56,29 @@
 </template>
 
 <script>
-  import { mapState } from "vuex";
+  import { mapState } from 'vuex';
 
   export default {
-    name: "HeaderNav",
+    name: 'HeaderNav',
     data() {
       return {
-        searchWord: "",
+        searchWord: '',
       };
     },
     methods: {
       logout() {
-        this.$store.dispatch("logout");
+        this.$store.dispatch('logout');
       },
       showModal() {
-        this.$refs["my-modal"].show();
+        this.$refs['my-modal'].show();
       },
       search() {
-        this.$store.dispatch("search", this.searchWord);
-        this.$refs["my-modal"].hide();
+        this.$store.dispatch('search', this.searchWord);
+        this.$refs['my-modal'].hide();
       },
     },
     computed: {
-      ...mapState(["loginUser"]),
+      ...mapState(['loginUser']),
       getUser() {
         if (this.loginUser) {
           return true;

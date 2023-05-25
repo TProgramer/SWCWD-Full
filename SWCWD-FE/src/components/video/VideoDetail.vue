@@ -18,16 +18,14 @@
           >
         </div>
         <!--모달-->
-        <b-modal id="my-modal" title="게시글 작성">
+        <b-modal id="my-modal" ref="my-modal" hide-footer title="게시글 작성">
           <form method="POST" action="main">
             <p>제목:</p>
             <input v-model="title" type="text" class="form-control" /> <br />
             <p>내용:</p>
             <input v-model="content" type="text" class="form-control" />
+            <v-btn block class="my-3" @click="createReview">Submit</v-btn>
           </form>
-          <template #modal-footer>
-            <v-btn class="w-25 m-1" @click="createReview">Submit</v-btn>
-          </template>
         </b-modal>
       </div>
       <div class="m-2 p-2">
@@ -63,25 +61,25 @@
 </template>
 
 <script>
-  import { mapState } from "vuex";
+  import { mapState } from 'vuex';
 
   export default {
-    name: "VideoDetail",
+    name: 'VideoDetail',
     data() {
       return {
-        title: "",
-        content: "",
+        title: '',
+        content: '',
       };
     },
     methods: {
       async setVideo(id) {
-        await this.$store.dispatch("setVideo", id);
+        await this.$store.dispatch('setVideo', id);
       },
       async setReviews(id) {
-        await this.$store.dispatch("setReviews", id);
+        await this.$store.dispatch('setReviews', id);
       },
       createReview() {
-        const pathName = new URL(document.location).pathname.split("/");
+        const pathName = new URL(document.location).pathname.split('/');
         const videoId = pathName[pathName.length - 1];
         const review = {
           videoId: videoId,
@@ -89,14 +87,15 @@
           content: this.content,
           writer: this.loginUser,
         };
-        this.$store.dispatch("createReview", review);
+        this.$refs['my-modal'].hide();
+        this.$store.dispatch('createReview', review);
       },
     },
     computed: {
-      ...mapState(["video", "loginUser", "reviews"]),
+      ...mapState(['video', 'loginUser', 'reviews']),
     },
     created() {
-      const pathName = new URL(document.location).pathname.split("/");
+      const pathName = new URL(document.location).pathname.split('/');
       const id = pathName[pathName.length - 1];
       this.setVideo(id);
       this.setReviews(id);

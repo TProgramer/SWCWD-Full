@@ -29,7 +29,7 @@
             </b-carousel>
           </v-sheet>
         </b-container>
-        <b-container class="w-25">
+        <div class="w-25">
           <button class="d-block h-100 w-75 overflow-auto" @click="moveSide">
             <b-img-lazy
               v-for="(popularVideo, index) in popularVideos"
@@ -42,7 +42,7 @@
               alt="..."
             ></b-img-lazy>
           </button>
-        </b-container>
+        </div>
       </div>
     </div>
 
