@@ -12,7 +12,7 @@
 		VALUES (#{id}, #{date}, #{title},#{content})
 	</insert>
 
-	<delete>
+	<delete id="deleteLog" parameterType="CalendarLog">
 		DELETE FROM calendarLog
 		WHERE id=#{id} AND date=#{date}
 	</delete>	
