@@ -13,8 +13,8 @@ export default new Vuex.Store({
     video: null,
     reviews: [],
     review: null,
-    accessToken: null,
-    refreshToken: null,
+    // accessToken: null,
+    // refreshToken: null,
     loginId: null,
     loginUser: null,
     regDate: null,
@@ -61,8 +61,8 @@ export default new Vuex.Store({
     SET_LOGIN_USER(state, payload) {
       VueCookies.set("accessToken", payload.accessToken, "60s");
       VueCookies.set("refreshToken", payload.refreshToken, "1h");
-      state.accessToken = payload.accessToken;
-      state.refreshToken = payload.refreshToken;
+      // state.accessToken = payload.accessToken;
+      // state.refreshToken = payload.refreshToken;
       state.loginId = payload.id;
       state.loginUser = payload.loginUser;
       state.regDate = payload.regDate;
@@ -71,7 +71,7 @@ export default new Vuex.Store({
       //accessToken 재셋팅
       VueCookies.set("accessToken", payload.accessToken, "60s");
       VueCookies.set("refreshToken", payload.refreshToken, "1h");
-      state.accessToken = payload;
+      // state.accessToken = payload;
     },
     LOGOUT (state) {
       VueCookies.remove('accessToken');
@@ -247,7 +247,7 @@ export default new Vuex.Store({
       console.log(log)
       http.post('api-mypage/', log)
         .then((res) => {
-          if(res.status == 200) {
+          if(res.status == 201) {
             Vue.set(state.calendarLog, state.calendarLog.length, log)
             alert("등록 성공!")
           }
@@ -259,19 +259,32 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
+    deleteCalendarLog({ state }, log) {
+      console.log(state)
+      http.delete('api-mypage/', log)
+        .then((res) => {
+          if(res.status == 200) {
+            alert("삭제 완료!")
+          }
+          else {
+            alert("삭제 실패..")
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
     askGPT: function({ commit }, logs) {
 
       const { Configuration, OpenAIApi } = require("openai");
 
-      console.log(process.env)
       const configiration = new Configuration({
           // organization: process.env.OPENAI_ORGANIZATION,
           apiKey: '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',
       });
 
-      console.log(commit, logs)
+      console.log(logs)
       
-      // const api_key = process.env.VUE_APP_OPEN_AI_KEY;
       let keywords = [];
       for(let log of logs) {
         keywords.push(log.title);

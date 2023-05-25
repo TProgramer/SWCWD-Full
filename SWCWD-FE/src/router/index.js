@@ -89,11 +89,12 @@ router.beforeEach( async(to, from, next) => { //여기서 모든 라우팅이 �
     //accessToken이 있을 경우 진행
     return next();
   }
+  
   // 둘다 없을 경우에는 여기서 요청을 너무 때려서 주석처리하고 App.uve에다가 created 훅에다가 추가함
-  // if(VueCookies.get('accessToken')===null && VueCookies.get('refreshToken') === null){
-  //   //2개 토큰이 모두 없을 경우 로그인페이지로
-  //   return next({name: 'Login'});
-  // }
+  if(to.path != "/login" && to.path != "/regist" && to.path != "/" && VueCookies.get('accessToken') === null && VueCookies.get('refreshToken') === null){
+    //2개 토큰이 모두 없을 경우 로그인페이지로
+    return next({name: 'Login'});
+  }
   return next();
 })
 
