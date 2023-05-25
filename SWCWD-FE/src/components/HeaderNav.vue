@@ -18,8 +18,8 @@
         <div class="d-flex mr-3 align-items-center">
           <b-icon-search
             type="button"
-            class="d-sm-none mr-3"
-            v-if="$route.path == ''"
+            class="d-block d-sm-none mr-3"
+            v-if="$route.path == '/'"
             @click="showModal"
           ></b-icon-search>
           <a
@@ -65,39 +65,39 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex';
+import { mapState } from "vuex";
 
-  export default {
-    name: 'HeaderNav',
-    data() {
-      return {
-        searchWord: '',
-      };
+export default {
+  name: "HeaderNav",
+  data() {
+    return {
+      searchWord: "",
+    };
+  },
+  methods: {
+    showModal() {
+      this.$refs["my-modal"].show();
     },
-    methods: {
-      showModal() {
-        this.$refs['my-modal'].show();
-      },
-      search() {
-        this.$store.dispatch('search', this.searchWord);
-        this.$refs['my-modal'].hide();
-      },
-      logout() {
-        this.$store.dispatch('logout');
-        this.$router.push('/');
-      },
+    search() {
+      this.$store.dispatch("search", this.searchWord);
+      this.$refs["my-modal"].hide();
     },
-    computed: {
-      ...mapState(['loginUser']),
-      getUser() {
-        if (this.loginUser) {
-          return true;
-        } else {
-          return false;
-        }
-      },
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.push("/");
     },
-  };
+  },
+  computed: {
+    ...mapState(["loginUser"]),
+    getUser() {
+      if (this.loginUser) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+  },
+};
 </script>
 
 <style></style>
