@@ -7,7 +7,7 @@
       <b-card-text v-else>기록이 존재하지 않습니다.</b-card-text>
     </b-card>
     <hr />
-    <div v-if="!todayLog">
+    <div v-if="!todayLog" class="m-5">
       <h2>GPT가 권장하는 오늘의 운동</h2>
       <div class="m-5">
         <div v-if="askGPTLog">
@@ -23,8 +23,11 @@
         <SkeletonCard v-else primary="#ffffff" structure="701120333" />
       </div>
     </div>
-    <div v-else>
-      <div style="display:flex; justify-content:flex-end;">
+    <div v-else class="m-5">
+      <div style="display:flex; justify-content:space-between;">
+        <h2>
+          오늘의 운동을 위한 영상 추천
+        </h2>
         <b-button @click="deleteCalendar" variant="outline-primary" style="white-space:nowrap; width:max-content">
           되돌리기
         </b-button>
@@ -79,7 +82,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["videos", "loginUser", "regDate", "calendarLog", "loginId", "askGPTLog"]),
+    ...mapState(["fullVideos", "loginUser", "regDate", "calendarLog", "loginId", "askGPTLog"]),
     targetLog: function () {
       for (let log of this.calendarLog) {
         if (this.selectedDate.toDateString() == new Date(log.date).toDateString())
@@ -95,7 +98,8 @@ export default {
       return null;
     },
     recommendVideo: function() {
-      for (let video of this.videos) {
+      console.log(this.todayLog.title)
+      for (let video of this.fullVideos) {
         if(video.title.includes(this.todayLog.title)) {
           return video.id;
         }
@@ -105,6 +109,7 @@ export default {
   },
   async created() {
     await this.$store.dispatch("getCalendarLog", this.loginId);
+    await this.$store.dispatch("setFullVideos", this.loginId);
     if (!this.askGPTLog && !this.todayLog)
       this.$store.dispatch("askGPT", this.calendarLog.slice(-3));
   },

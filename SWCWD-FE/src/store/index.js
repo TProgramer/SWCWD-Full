@@ -23,6 +23,7 @@ export default new Vuex.Store({
     askGPTLog: null,
     filteredVideos: [],
     category: '',
+    fullVideos: [],
   },
   getters: {
     showVideos: function (state) {
@@ -50,6 +51,9 @@ export default new Vuex.Store({
     SET_POPULAR_VIDEOS: function (state, popularVideos) {
       state.popularVideos = popularVideos;
     },
+    SET_FULL_VIDEOS: function(state, fullVideos) {
+      state.fullVideos = fullVideos;
+    },
     SET_VIDEO: function (state, video) {
       state.video = video;
     },
@@ -60,7 +64,7 @@ export default new Vuex.Store({
       state.review = review;
     },
     SET_LOGIN_USER(state, payload) {
-      VueCookies.set('accessToken', payload.accessToken, '60s');
+      VueCookies.set('accessToken', payload.accessToken, '5m');
       VueCookies.set('refreshToken', payload.refreshToken, '1h');
       state.accessToken = payload.accessToken;
       state.refreshToken = payload.refreshToken;
@@ -114,6 +118,11 @@ export default new Vuex.Store({
       http.get('api-video/list/viewCnt').then((res) => {
         commit('SET_POPULAR_VIDEOS', res.data);
       });
+    },
+    setFullVideos: function({ commit }) {
+      http.get('api-video/list').then((res) => {
+        commit('SET_FULL_VIDEOS', res.data);
+      })
     },
     setVideo: function ({ commit }, id) {
       http.get(`api-video/${id}`).then((res) => {

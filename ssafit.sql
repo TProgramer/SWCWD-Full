@@ -57,6 +57,8 @@ INSERT INTO video (id, title, thumbUrl, viewCnt, category) VALUES
 ('RctfBY93uIM', '박재범 몸은 얼마나 운동해야 될까..', 'https://i.ytimg.com/vi/RctfBY93uIM/hqdefault.jpg', 378521, '미정'),
 ('eJBeiUYRm-8', '뱃살 내장지방 벽 짚고 이렇게 하면 싹 다 빠집니다! 걷기 대신 이 운동을 매일 하면 효과 최고입니다! [복부비만, 플랭크,뱃살빼는운동, 홈트레이닝,근력운동,맨몸운동]', 'https://i.ytimg.com/vi/eJBeiUYRm-8/hqdefault.jpg', 7662440, '복근'),
 ('swRNeYw1JkY', '하루 15분! 전신 칼로리 불태우는 다이어트 운동', 'https://i.ytimg.com/vi/swRNeYw1JkY/hqdefault.jpg', 530664, '미정'),
+('-Jly62tmtr8', '온몸 구석구석 풀어주는 딥 스트레칭 요가 | 전신 스트레칭 | 찌뿌둥할때, 몸이 무거울때','https://i.ytimg.com/vi/-Jly62tmtr8/hqdefault.jpg', 105326, '미정'),
+('_JCyJEnFPK0', '조깅 혁명? 이 차이를 알면 달리기가 3배 더 쉬워집니다','https://i.ytimg.com/vi/_JCyJEnFPK0/hqdefault.jpg', 43390, '미정'),
 ('lDsJi3_EW-Y', 'Lv.5 12분만에 체지방 100% 소각시키는 루틴 따라만하세요! [Only 12mins Fat Burning Workout]', 'https://i.ytimg.com/vi/lDsJi3_EW-Y/hqdefault.jpg', 473125, '미정');
 
 DROP TABLE IF EXISTS `user`;
@@ -116,7 +118,7 @@ CREATE TABLE `calendarLog` (
 
 INSERT INTO calendarLog
 VALUES
-('ssafy1', '2023-05-21 00:00:00', '유산소 운동', '5분만 해도 땀이 뻘뻘;'),
+('ssafy1', '2023-05-21 00:00:00', '수영', '열심히 헤'),
 ('ssafy1', '2023-05-22 00:00:00', '유산소 운동', '5분만 해도 땀이 뻘뻘;'),
 ('ssafy1', '2023-05-23 00:00:00', '유산소 운동', '5분만 해도 땀이 뻘뻘;');
 
