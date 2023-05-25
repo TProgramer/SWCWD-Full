@@ -279,21 +279,6 @@ export default new Vuex.Store({
           console.log(err);
         });
     },
-    deleteCalendarLog({ state }, log) {
-      console.log(state);
-      http
-        .delete('api-mypage/', log)
-        .then((res) => {
-          if (res.status == 200) {
-            alert('삭제 완료!');
-          } else {
-            alert('삭제 실패..');
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
     askGPT: function ({ commit }, logs) {
       const { Configuration, OpenAIApi } = require('openai');
 

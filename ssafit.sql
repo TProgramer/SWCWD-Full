@@ -59,45 +59,6 @@ INSERT INTO video (id, title, thumbUrl, viewCnt, category) VALUES
 ('swRNeYw1JkY', '하루 15분! 전신 칼로리 불태우는 다이어트 운동', 'https://i.ytimg.com/vi/swRNeYw1JkY/hqdefault.jpg', 530664, '미정'),
 ('lDsJi3_EW-Y', 'Lv.5 12분만에 체지방 100% 소각시키는 루틴 따라만하세요! [Only 12mins Fat Burning Workout]', 'https://i.ytimg.com/vi/lDsJi3_EW-Y/hqdefault.jpg', 473125, '미정');
 
-INSERT INTO video (id,title,thumbUrl,viewCnt,category) VALUES 
-(
-    '_DZxEBACTTs',
-    "등근육 넓히는 운동 그만찾고 턱걸이+'이 운동' 하세요",
-    "https://i.ytimg.com/vi/_DZxEBACTTs/hqdefault.jpg",
-    3595850,
-    "복근"
-  ),
-  (
-    "1VImLS9eKdI",
-    "고혈압 치료 위해 운동에 매달리면 몸 상합니다",
-    "https://i.ytimg.com/vi/1VImLS9eKdI/hqdefault.jpg",
-    9028199,
-    "상체"
-  ),
-  (
-    "2paxL9MmxWM",
-    "[여자아이돌 다이어트댄스] 실제 감량 후기 폭발했던 4세대 여돌 플레이리스트로 2주 -5kg 도전 해보세요!",
-    "https://i.ytimg.com/vi/2paxL9MmxWM/hqdefault.jpg",
-    4613190,
-    "복근"
- ),
-  (
-    "3e2LgnaXEz4",
-    "벽운동으로 마른탄탄 슬림핏 만들기 #workout#shorts#홈트#다이어트#전신운동",
-    "https://i.ytimg.com/vi/3e2LgnaXEz4/hqdefault.jpg",
-    6273272,
-    "하체"
-  ),
-  (
-    "416o0DCO0BM",
-    "[ENG] 하루 10분:fire: 홈트 이걸로 끝! 체지방 200% 태우는 전신 타바타 운동",
-    "https://i.ytimg.com/vi/416o0DCO0BM/hqdefault.jpg",
-    6567039,
-    "복근"
-  );
-
-
-
 DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
