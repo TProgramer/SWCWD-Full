@@ -14,8 +14,8 @@ export default new Vuex.Store({
     video: null,
     reviews: [],
     review: null,
-    accessToken: null,
-    refreshToken: null,
+    // accessToken: null,
+    // refreshToken: null,
     loginId: null,
     loginUser: null,
     regDate: null,
@@ -256,9 +256,23 @@ export default new Vuex.Store({
         .then((res) => {
           if (res.status == 201) {
             Vue.set(state.calendarLog, state.calendarLog.length, log);
-            alert('등록 성공!');
           } else {
             alert('정보를 불러오는데 실패했습니다.');
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    deleteCalendarLog: function ({ state, dispatch }, data) {
+      console.log(state);
+      http
+        .delete('api-mypage/', { data })
+        .then((res) => {
+          if (res.status == 200) {
+            dispatch('getCalendarLog', this.loginId);
+          } else {
+            alert('삭제 실패..');
           }
         })
         .catch((err) => {

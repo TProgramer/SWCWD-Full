@@ -26,4 +26,11 @@ public class CalendarLogServiceImpl implements CalendarLogService {
 		int result = calendarLogDao.insertLog(log);
 		return result;
 	}
+
+	//달력 로그 지우기
+	@Override
+	public int deleteLog(CalendarLog log) {
+		int result = calendarLogDao.deleteLog(log);
+		return result;
+	}
 }

@@ -8,5 +8,7 @@ public interface CalendarLogDao {
   
   public List<CalendarLog> selectAll(String id);
 
-  public int insertLog(CalendarLog log);  
+  public int insertLog(CalendarLog log);
+  
+  public int deleteLog(CalendarLog log);
 }
