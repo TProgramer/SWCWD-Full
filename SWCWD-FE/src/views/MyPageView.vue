@@ -89,6 +89,7 @@ export default {
   computed: {
     ...mapState(["loginUser", "regDate", "calendarLog", "loginId", "askGPTLog"]),
     targetLog: function() {
+      console.log(new Date(this.selectedDate.toString().slice(0,3)))
       for(let log of this.calendarLog) {
         if(this.selectedDate.toISOString().slice(0, 10) === new Date(log.date).toISOString().slice(0, 10)) {
           return log;
