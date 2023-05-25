@@ -16,6 +16,24 @@
               @sliding-start="onSlideStart"
               @sliding-end="onSlideEnd"
             >
+              <div
+                style="
+                  font-size: 14px;
+                  position: absolute;
+                  z-index: 1000;
+                  bottom: 0;
+                  color: white;
+                  background-color: black;
+                  opacity: 0.8;
+                  text-align: end;
+                "
+                class="d-block w-100"
+                id="slide-title"
+              >
+                {{ showVideos[slide].title }}
+                <br />
+                조회수: {{ showVideos[slide].viewCnt }}
+              </div>
               <router-link
                 v-for="video in popularVideos"
                 :key="video.id"
@@ -23,6 +41,7 @@
                 >``
                 <b-carousel-slide
                   :img-src="`https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`"
+                  class="text-center"
                 >
                 </b-carousel-slide>
               </router-link>
@@ -122,10 +141,17 @@
                 class="mb-2"
                 alt="..."
               ></b-img-lazy>
-              <div style="height: 45px">
-                <p class="ml-1" v-line-clamp:20="2" style="font-size: 14px">
+              <div style="height: 60px">
+                <span
+                  class="ml-1"
+                  v-line-clamp:20="2"
+                  style="font-size: 14px; font-weight: bold"
+                >
                   {{ video.title }}
-                </p>
+                </span>
+                <span class="ml-1" v-line-clamp:20="2" style="font-size: 14px">
+                  조회수: {{ video.viewCnt }}
+                </span>
               </div>
             </v-sheet>
           </router-link>
@@ -140,7 +166,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+  import { mapGetters, mapState } from 'vuex';
   import InfiniteLoading from 'vue-infinite-loading';
   export default {
     name: 'HomeView',
@@ -185,10 +211,12 @@
       InfiniteLoading,
     },
     computed: {
-      ...mapGetters(['popularVideos', 'showVideos']),
+      ...mapState(['popularVideos']),
+      ...mapGetters(['showVideos']),
     },
     created() {
       this.$store.dispatch('setVideos');
+      this.$store.dispatch('setPopularVideos');
     },
   };
 </script>
@@ -203,6 +231,9 @@
     }
     .row {
       margin: 0;
+    }
+    #slide-title {
+      font-size: 8px !important;
     }
   }
 </style>

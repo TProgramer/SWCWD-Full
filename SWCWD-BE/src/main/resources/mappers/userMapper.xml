@@ -13,7 +13,7 @@
 	</select>
 	
 	<insert id="insertUser" parameterType="User">
-		INSERT INTO user
+		INSERT INTO user(id, password, name, nickname, email, birthDay, phoneNum)
 		VALUES (#{id}, #{password}, #{name},#{nickname},#{email},#{birthDay},#{phoneNum})
 	</insert>
 	

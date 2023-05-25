@@ -9,4 +9,6 @@ public interface CalendarLogService {
   public List<CalendarLog> selectAll(String id);
 
   public int insertLog(CalendarLog log);
+	
+  public int deleteLog(CalendarLog log);
 }

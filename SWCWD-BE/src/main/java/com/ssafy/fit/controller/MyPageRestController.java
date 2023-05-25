@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,5 +34,11 @@ public class MyPageRestController {
   public ResponseEntity<CalendarLog> write(@RequestBody CalendarLog log){
     calendarLogService.insertLog(log);
     return new ResponseEntity<CalendarLog>(HttpStatus.CREATED); 
+  }
+  
+  @DeleteMapping("/")
+  public ResponseEntity<CalendarLog> erase(@RequestBody CalendarLog log){
+    calendarLogService.deleteLog(log);
+    return new ResponseEntity<CalendarLog>(HttpStatus.OK); 
   }
 }

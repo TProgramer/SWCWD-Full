@@ -20,10 +20,17 @@
             class="d-sm-none mr-3"
             @click="showModal"
           ></b-icon-search>
+          <a
+            href="redirect:/"
+            @click="logout"
+            style="font-size: 16px; font-weight: 500"
+            v-if="$route.path == '/mypage'"
+            >로그아웃
+          </a>
           <router-link
             to="/mypage"
             style="font-size: 16px; font-weight: 500"
-            v-if="getUser"
+            v-else-if="getUser"
             >마이페이지</router-link
           >
           <router-link
