@@ -8,6 +8,7 @@
         id="id"
         v-model="id"
         class="view"
+        @keyup.enter="regist"
       /><br />
       <input
         placeholder="password"
@@ -15,6 +16,7 @@
         id="password"
         v-model="password"
         class="view"
+        @keyup.enter="regist"
       /><br />
       <input
         placeholder="name"
@@ -22,6 +24,7 @@
         id="name"
         v-model="name"
         class="view"
+        @keyup.enter="regist"
       /><br />
       <input
         placeholder="nickname"
@@ -29,6 +32,7 @@
         id="nickname"
         v-model="nickname"
         class="view"
+        @keyup.enter="regist"
       /><br />
       <input
         placeholder="birthDay"
@@ -36,6 +40,7 @@
         id="birthDay"
         v-model="birthDay"
         class="view"
+        @keyup.enter="regist"
       /><br />
       <input
         placeholder="email"
@@ -43,6 +48,7 @@
         id="email"
         v-model="email"
         class="view"
+        @keyup.enter="regist"
       /><br />
       <input
         placeholder="phoneNum"
@@ -50,6 +56,7 @@
         id="phoneNum"
         v-model="phoneNum"
         class="view"
+        @keyup.enter="regist"
       /><br />
       <div class="row justify-content-center">
         <v-btn class="col-sm-2 col-9" color="primary" @click="regist"
