@@ -30,9 +30,9 @@
                 class="d-block w-100"
                 id="slide-title"
               >
-                {{ showVideos[slide].title }}
+                {{ popularVideos[slide].title }}
                 <br />
-                조회수: {{ showVideos[slide].viewCnt }}
+                조회수: {{ popularVideos[slide].viewCnt }}
               </div>
               <router-link
                 v-for="video in popularVideos"
