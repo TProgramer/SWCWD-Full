@@ -4,29 +4,65 @@
       <h4 id="popular-text" class="my-3">인기 동영상</h4>
       <!--carousel slide-->
       <div class="d-flex justify-content-center">
-        <b-container class="w-75">
-          <b-carousel
-            id="carousel-1"
-            v-model="slide"
-            :interval="4000"
-            controls
-            background="#ababab"
-            style="text-shadow: 1px 1px 2px #333"
-            @sliding-start="onSlideStart"
-            @sliding-end="onSlideEnd"
-          >
-            <router-link
-              v-for="video in popularVideos"
-              :key="video.id"
-              :to="`video/${video.id}`"
-              >``
-              <b-carousel-slide
-                :img-src="`https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`"
+        <b-container class="d-flex w-100 align-items-center">
+          <v-sheet elevation="5">
+            <b-carousel
+              id="carousel-1"
+              v-model="slide"
+              :interval="4000"
+              controls
+              background="#ababab"
+              style="text-shadow: 1px 1px 2px #333"
+              @sliding-start="onSlideStart"
+              @sliding-end="onSlideEnd"
+            >
+              <div
+                style="
+                  font-size: 14px;
+                  position: absolute;
+                  z-index: 1000;
+                  bottom: 0;
+                  color: white;
+                  background-color: black;
+                  opacity: 0.8;
+                  text-align: end;
+                "
+                class="d-block w-100"
+                id="slide-title"
               >
-              </b-carousel-slide>
-            </router-link>
-          </b-carousel>
+                {{ showVideos[slide].title }}
+                <br />
+                조회수: {{ showVideos[slide].viewCnt }}
+              </div>
+              <router-link
+                v-for="video in popularVideos"
+                :key="video.id"
+                :to="`video/${video.id}`"
+                >``
+                <b-carousel-slide
+                  :img-src="`https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`"
+                  class="text-center"
+                >
+                </b-carousel-slide>
+              </router-link>
+            </b-carousel>
+          </v-sheet>
         </b-container>
+
+        <div class="w-25">
+          <button class="d-block h-100 w-75 overflow-auto" @click="moveSide">
+            <b-img-lazy
+              v-for="(popularVideo, index) in popularVideos"
+              :key="popularVideo.id"
+              :id="index"
+              fluid
+              :src="`https://img.youtube.com/vi/${popularVideo.id}/mqdefault.jpg`"
+              style="object-fit: cover"
+              class="mb-2 border"
+              alt="..."
+            ></b-img-lazy>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -91,14 +127,14 @@
           >복근</v-btn
         >
       </div>
-      <b-container id="video-list" class="row justify-content-center">
+      <b-container id="video-list" class="row justify-content-start">
         <div
-          class="col-xs-8 col-sm-6 col-md-4 col-lg-3"
+          class="col-xs-8 col-sm-6 col-md-4 col-lg-3 mb-3"
           v-for="video in showVideos"
           :key="video.id"
         >
           <router-link :to="`video/${video.id}`">
-            <div class="d-flex flex-column">
+            <v-sheet class="d-flex flex-column" elevation="2">
               <b-img-lazy
                 fluid
                 :src="`https://img.youtube.com/vi/${video.id}/mqdefault.jpg`"
@@ -106,12 +142,19 @@
                 class="mb-2"
                 alt="..."
               ></b-img-lazy>
-              <div class="w-100" style="font-size: 14px">
-                <p v-line-clamp:20="2">
+              <div style="height: 60px">
+                <span
+                  class="ml-1"
+                  v-line-clamp:20="2"
+                  style="font-size: 14px; font-weight: bold"
+                >
                   {{ video.title }}
-                </p>
+                </span>
+                <span class="ml-1" v-line-clamp:20="2" style="font-size: 14px">
+                  조회수: {{ video.viewCnt }}
+                </span>
               </div>
-            </div>
+            </v-sheet>
           </router-link>
         </div>
       </b-container>
@@ -124,10 +167,10 @@
 </template>
 
 <script>
-  import { mapGetters } from "vuex";
-  import InfiniteLoading from "vue-infinite-loading";
+  import { mapGetters, mapState } from 'vuex';
+  import InfiniteLoading from 'vue-infinite-loading';
   export default {
-    name: "HomeView",
+    name: 'HomeView',
     data() {
       return {
         slide: 0,
@@ -141,10 +184,11 @@
       onSlideEnd() {
         this.sliding = false;
       },
+
       infiniteHandler($state) {
         setTimeout(() => {
           this.$store
-            .dispatch("getMoreVideo")
+            .dispatch('getMoreVideo')
             .then((res) => {
               if (res) $state.loaded();
               else $state.complete();
@@ -156,19 +200,24 @@
       },
       onCategoryBtnClick(e) {
         this.$store.dispatch(
-          "setCategory",
-          e.currentTarget.getAttribute("value")
+          'setCategory',
+          e.currentTarget.getAttribute('value')
         );
+      },
+      moveSide(e) {
+        this.slide = parseInt(e.target.id);
       },
     },
     components: {
       InfiniteLoading,
     },
     computed: {
-      ...mapGetters(["popularVideos", "showVideos"]),
+      ...mapState(['popularVideos']),
+      ...mapGetters(['showVideos']),
     },
     created() {
-      this.$store.dispatch("setVideos");
+      this.$store.dispatch('setVideos');
+      this.$store.dispatch('setPopularVideos');
     },
   };
 </script>
@@ -183,6 +232,9 @@
     }
     .row {
       margin: 0;
+    }
+    #slide-title {
+      font-size: 8px !important;
     }
   }
 </style>

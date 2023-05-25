@@ -4,7 +4,14 @@
     <h2 class="text-center font-weight-bold">환영합니다.</h2>
     <fieldset class="text-center">
       <div class="d-flex justify-content-center align-items-center">
-        <input placeholder="ID" type="text" id="id" v-model="id" class="view" />
+        <input
+          placeholder="ID"
+          type="text"
+          id="id"
+          v-model="id"
+          class="view"
+          @keyup.enter="login"
+        />
       </div>
       <div class="d-flex justify-content-center align-items-center">
         <input
@@ -12,6 +19,7 @@
           type="password"
           id="password"
           v-model="password"
+          @keyup.enter="login"
           class="view"
         />
       </div>

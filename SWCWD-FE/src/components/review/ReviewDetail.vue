@@ -52,44 +52,54 @@
           </blockquote>
         </div>
       </div>
-    </div>
-    <div class="d-flex justify-content-end fluid">
-      <router-link class="m-1" to="/">
-        <v-btn class="btn-block" type="button">목록</v-btn>
-      </router-link>
-      <!--모달 트리거-->
-      <div class="m-1">
-        <v-btn class="btn-block" color="primary" v-b-modal="'my-modal'"
-          >수정</v-btn
-        >
-      </div>
-      <div class="m-1">
-        <v-btn color="error" @click="deleteReview">삭제</v-btn>
+      <br />
+      <div class="d-flex justify-content-end fluid">
+        <router-link to="/">
+          <v-btn class="btn-block" type="button">목록</v-btn>
+        </router-link>
+        <!--모달 트리거-->
+        <div class="ml-1">
+          <v-btn
+            v-show="loginUser === review.writer"
+            class="btn-block"
+            color="primary"
+            v-b-modal="'my-modal'"
+            >수정</v-btn
+          >
+        </div>
+        <div class="ml-1">
+          <v-btn
+            v-show="loginUser === review.writer"
+            color="error"
+            @click="deleteReview"
+            >삭제</v-btn
+          >
+        </div>
       </div>
     </div>
   </main>
 </template>
 
 <script>
-  import { mapState } from "vuex";
+  import { mapState } from 'vuex';
   export default {
-    name: "ReviewDetail",
+    name: 'ReviewDetail',
     methods: {
       setReview(id) {
-        this.$store.dispatch("setReview", id);
+        this.$store.dispatch('setReview', id);
       },
       updateReview() {
-        this.$store.dispatch("updateReview", this.review);
+        this.$store.dispatch('updateReview', this.review);
       },
       deleteReview() {
-        this.$store.dispatch("deleteReview", this.review.id);
+        this.$store.dispatch('deleteReview', this.review.id);
       },
     },
     computed: {
-      ...mapState(["review"]),
+      ...mapState(['review', 'loginUser']),
     },
     created() {
-      const pathName = new URL(document.location).pathname.split("/");
+      const pathName = new URL(document.location).pathname.split('/');
       const id = pathName[pathName.length - 1];
       this.setReview(id);
     },

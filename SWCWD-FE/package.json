@@ -14,6 +14,7 @@
     "bootstrap-vue": "^2.23.1",
     "core-js": "^3.8.3",
     "dayjs": "^1.11.7",
+    "dotenv-expand": "^10.0.0",
     "openai": "^3.2.1",
     "primevue": "^2.10.1",
     "sass-loader": "^10.4.1",
@@ -25,9 +26,9 @@
     "vue-ultimate-skeleton-cards": "^1.0.3",
     "vue2-datepicker": "^3.11.1",
     "vue2-inline-calendar": "^1.1.0",
+    "vuetify": "^2.6.0",
     "vuex": "^3.6.2",
-    "vuex-persistedstate": "^4.1.0",
-    "vuetify": "^2.6.0"
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

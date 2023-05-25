@@ -1,8 +1,8 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import http from "../util/http-common"
+import Vue from 'vue';
+import Vuex from 'vuex';
+import http from '../util/http-common';
 import VueCookies from 'vue-cookies';
-import router from "../router"
+import router from '../router';
 import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
@@ -21,14 +21,14 @@ export default new Vuex.Store({
     calendarLog: [],
     askGPTLog: null,
     filteredVideos: [],
-    category: "",
+    category: '',
   },
   getters: {
     popularVideos: function (state) {
       return state.videos.slice(0, 5);
     },
     showVideos: function (state) {
-      if (state.category == "") return state.filteredVideos;
+      if (state.category == '') return state.filteredVideos;
       return state.filteredVideos.filter((e) => e.category === state.category);
     },
     lastVideoId: function (state) {
@@ -36,8 +36,8 @@ export default new Vuex.Store({
     },
     getToken(state) {
       console.log(state);
-      let ac = VueCookies.get("accessToken");
-      let rf = VueCookies.get("refreshToken");
+      let ac = VueCookies.get('accessToken');
+      let rf = VueCookies.get('refreshToken');
       return {
         access: ac,
         refresh: rf,
@@ -59,38 +59,38 @@ export default new Vuex.Store({
       state.review = review;
     },
     SET_LOGIN_USER(state, payload) {
-      VueCookies.set("accessToken", payload.accessToken, "60s");
-      VueCookies.set("refreshToken", payload.refreshToken, "1h");
-      // state.accessToken = payload.accessToken;
-      // state.refreshToken = payload.refreshToken;
+      VueCookies.set('accessToken', payload.accessToken, '60s');
+      VueCookies.set('refreshToken', payload.refreshToken, '1h');
+      state.accessToken = payload.accessToken;
+      state.refreshToken = payload.refreshToken;
       state.loginId = payload.id;
       state.loginUser = payload.loginUser;
       state.regDate = payload.regDate;
     },
     refreshToken(state, payload) {
       //accessToken 재셋팅
-      VueCookies.set("accessToken", payload.accessToken, "60s");
-      VueCookies.set("refreshToken", payload.refreshToken, "1h");
-      // state.accessToken = payload;
+      VueCookies.set('accessToken', payload.accessToken, '60s');
+      VueCookies.set('refreshToken', payload.refreshToken, '1h');
+      state.accessToken = payload;
     },
-    LOGOUT (state) {
+    LOGOUT(state) {
       VueCookies.remove('accessToken');
       VueCookies.remove('refreshToken');
-      state.loginId= null;
-      state.loginUser= null;
-      state.regDate= null;
-      state.calendarLog= [];
+      state.loginId = null;
+      state.loginUser = null;
+      state.regDate = null;
+      state.calendarLog = [];
       state.calendarLog = [];
       state.askGPTLog = null;
     },
-    GET_CALENDAR_LOG (state, payload) {
+    GET_CALENDAR_LOG(state, payload) {
       state.calendarLog = payload;
     },
-    ASK_GPT (state, payload) {
+    ASK_GPT(state, payload) {
       state.askGPTLog = payload;
     },
     SEARCH(state, searchWord) {
-      if (searchWord == "") state.filteredVideos = state.videos;
+      if (searchWord == '') state.filteredVideos = state.videos;
       else
         state.filteredVideos = state.videos.filter((e) =>
           e.title.includes(searchWord)
@@ -105,45 +105,45 @@ export default new Vuex.Store({
   },
   actions: {
     setVideos: function ({ commit }) {
-      http.get("api-video/list/page").then((res) => {
-        commit("SET_VIDEOS", res.data);
+      http.get('api-video/list/page').then((res) => {
+        commit('SET_VIDEOS', res.data);
       });
     },
     setVideo: function ({ commit }, id) {
       http.get(`api-video/${id}`).then((res) => {
-        commit("SET_VIDEO", res.data);
+        commit('SET_VIDEO', res.data);
       });
     },
     createUser: function ({ commit }, user) {
       console.log(commit);
-      http.post("api-user/signup", user).then((res) => {
+      http.post('api-user/signup', user).then((res) => {
         if (res.status === 201) {
-          alert("회원가입이 완료되었습니다.");
-          router.push("/");
+          alert('회원가입이 완료되었습니다.');
+          router.push('/login');
         }
       });
     },
     setReviews: function ({ commit }, id) {
       const params = { videoId: id };
-      http.get("api-review/", { params }).then((res) => {
-        commit("SET_REVIEWS", res.data);
+      http.get('api-review/', { params }).then((res) => {
+        commit('SET_REVIEWS', res.data);
       });
     },
     setReview: function ({ commit }, id) {
       http.get(`api-review/${id}`).then((res) => {
-        commit("SET_REVIEW", res.data);
+        commit('SET_REVIEW', res.data);
       });
     },
     setLoginUser: ({ commit }, user) => {
       http
-        .post("api-user/login", user)
+        .post('api-user/login', user)
         .then((res) => {
           if (res.status == 202) {
-            alert("로그인 성공!");
-            commit("SET_LOGIN_USER", res.data);
-            router.push("/");
+            alert('로그인 성공!');
+            commit('SET_LOGIN_USER', res.data);
+            router.push('/');
           } else {
-            alert("로그인 실패");
+            alert('로그인 실패');
           }
         })
         .catch((err) => {
@@ -151,25 +151,25 @@ export default new Vuex.Store({
         });
     },
     logout: ({ commit }) => {
-      commit("LOGOUT");
-      alert("로그아웃 되었습니다.");
+      commit('LOGOUT');
+      alert('로그아웃 되었습니다.');
+      router.push('/login');
     },
-    createReview: function ({ commit }, review) {
+    createReview: function ({ commit, dispatch }, review) {
       console.log(commit);
-      http.post("api-review/", review).then((res) => {
+      http.post('api-review/', review).then((res) => {
         if (res.status === 201) {
-          alert("등록완료");
-          router.push("/");
+          alert('등록완료');
+          dispatch('setReviews', review.videoId);
         }
       });
     },
     updateReview: function ({ commit }, review) {
       console.log(commit);
       http
-        .put("api-review/", review)
+        .put('api-review/', review)
         .then(() => {
-          alert("수정 완료!");
-          router.push("/");
+          alert('수정 완료!');
         })
         .catch((err) => {
           console.log(err);
@@ -180,15 +180,15 @@ export default new Vuex.Store({
       http
         .delete(`api-review/${id}`)
         .then(() => {
-          alert("삭제 완료!");
-          router.push("/");
+          alert('삭제 완료!');
+          router.push('/');
         })
         .catch((err) => {
           console.log(err);
         });
     },
     search: function ({ commit }, searchWord) {
-      commit("SEARCH", searchWord);
+      commit('SEARCH', searchWord);
     },
     getMoreVideo: function ({ commit, getters }) {
       return new Promise((resolve, reject) => {
@@ -200,7 +200,7 @@ export default new Vuex.Store({
           })
           .then((res) => {
             if (res.data.length) {
-              commit("GET_MORE_VIDEO", res.data);
+              commit('GET_MORE_VIDEO', res.data);
               resolve(true);
             } else resolve(false);
           })
@@ -210,7 +210,7 @@ export default new Vuex.Store({
       });
     },
     setCategory: function ({ commit }, category) {
-      commit("SET_CATEGORY", category);
+      commit('SET_CATEGORY', category);
     },
     // refreshToken: ({commit}) => { // accessToken 재요청
     //   //accessToken 만료로 재발급 후 재요청시 비동기처리로는 제대로 처리가 안되서 promise로 처리함
@@ -228,20 +228,20 @@ export default new Vuex.Store({
     //   commit('removeToken');
     //   location.reload();
     // },
-    getCalendarLog: function({ commit }, id) {
-      const params = {loginId: id}
-      http.get('api-mypage/', { params })
+    getCalendarLog: function ({ commit }, id) {
+      const params = { loginId: id };
+      http
+        .get('api-mypage/', { params })
         .then((res) => {
-          if(res.status == 200) {
-            commit("GET_CALENDAR_LOG", res.data);
-          }
-          else {
-            alert("정보를 불러오는데 실패했습니다.")
+          if (res.status == 200) {
+            commit('GET_CALENDAR_LOG', res.data);
+          } else {
+            alert('정보를 불러오는데 실패했습니다.');
           }
         })
         .catch((err) => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     setCalendarLog: function({ state }, log) {
       console.log(log)
@@ -255,8 +255,8 @@ export default new Vuex.Store({
           }
         })
         .catch((err) => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     deleteCalendarLog: function({ state, dispatch }, data) {
       console.log(state)
@@ -278,49 +278,55 @@ export default new Vuex.Store({
       const { Configuration, OpenAIApi } = require("openai");
 
       const configiration = new Configuration({
-          // organization: process.env.OPENAI_ORGANIZATION,
-          apiKey: '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',
+        // organization: process.env.OPENAI_ORGANIZATION,
+        apiKey: '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',
       });
 
       console.log(logs)
       
       let keywords = [];
-      for(let log of logs) {
+      for (let log of logs) {
         keywords.push(log.title);
       }
-      
+
       const messages = [
         { role: 'system', content: 'You are a helpful and kind trainer.' },
-        { role: 'user', content: '최근에 ' + keywords.join(',') + '을(를) 했는데 다음에 어떤 운동을 하면 좋을지 3가지 정도로 추천해줘.' },
-      ]
+        {
+          role: 'user',
+          content:
+            '최근에 ' +
+            keywords.join(',') +
+            '을(를) 했는데 다음에 어떤 운동을 하면 좋을지 3가지 정도로 추천해줘.',
+        },
+      ];
 
       const openai = new OpenAIApi(configiration);
 
       const runGPT35 = async () => {
         const res = await openai.createChatCompletion({
-          model: "gpt-3.5-turbo",
+          model: 'gpt-3.5-turbo',
           messages: messages,
           temperature: 0.5,
           n: 1,
         });
-        console.log(res)
+        console.log(res);
         let answer = [];
-        res.data.choices[0].message.content.split('\n\n').forEach((sentence) => {
-          if(Number.isInteger(Number(sentence[0]))) {
-            const [title, content] = sentence.split(':');
-            answer.push({
-              title: title,
-              content: content
-            });
-          }
-        });
+        res.data.choices[0].message.content
+          .split('\n\n')
+          .forEach((sentence) => {
+            if (Number.isInteger(Number(sentence[0]))) {
+              const [title, content] = sentence.split(':');
+              answer.push({
+                title: title,
+                content: content,
+              });
+            }
+          });
         commit('ASK_GPT', answer);
       };
-      
+
       runGPT35();
     },
   },
-  plugins: [
-    createPersistedState(),
-  ]
-})
+  plugins: [createPersistedState()],
+});
