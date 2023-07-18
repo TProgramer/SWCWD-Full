@@ -34,7 +34,7 @@ jobs:
       - name: Build with Maven
         run: cd SWCWD-BE && mvn -B package --file pom.xml
 
-      # CodeDeploy는 압축된 파일만 허용함
+      # CodeDeploy는 압축된 파일만 허용
       - name: Create ZIP File
         run: cd SWCWD-BE && zip -qq SWCWD-build.zip target/*.jar appspec.yml scripts/*.sh
 
